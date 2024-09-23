@@ -3,6 +3,12 @@ import { ref, computed, watch } from 'vue'
 
 const emit = defineEmits(['update:totalGrossPay'])
 
+const manuallyEdited = ref({
+  houseRent: false,
+  conveyance: false,
+  medicalAllowance: false
+})
+
 const incomeFields = {
   basic: ref(807000),
   houseRent: ref(403500),
@@ -16,6 +22,18 @@ const incomeFields = {
   transportation: ref(0)
 }
 
+watch(() => incomeFields.basic.value, (newBasic) => {
+  if (!manuallyEdited.value.houseRent) {
+    incomeFields.houseRent.value = newBasic * 0.5
+  }
+  if (!manuallyEdited.value.conveyance) {
+    incomeFields.conveyance.value = newBasic * 0.25
+  }
+  if (!manuallyEdited.value.medicalAllowance) {
+    incomeFields.medicalAllowance.value = newBasic * 0.25
+  }
+})
+
 const totalGrossPay = computed(() =>
     Object.values(incomeFields).reduce((sum, field) => sum + field.value, 0)
 )
@@ -28,6 +46,12 @@ watch(totalGrossPay, (newValue) => {
 })
 
 const formatNumber = (num) => num.toLocaleString()
+
+const handleManualEdit = (field) => {
+  if (['houseRent', 'conveyance', 'medicalAllowance'].includes(field)) {
+    manuallyEdited.value[field] = true
+  }
+}
 </script>
 
 <template>
@@ -47,6 +71,7 @@ const formatNumber = (num) => num.toLocaleString()
         <td>
           <input
               v-model.number="incomeFields[key].value"
+              @input="handleManualEdit(key)"
               class="form-control form-control-sm"
               type="number"
           >
