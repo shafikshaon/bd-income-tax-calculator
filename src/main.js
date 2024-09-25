@@ -3,6 +3,7 @@ import './assets/grid.css'
 
 import { createApp } from 'vue'
 import App from './App.vue'
+import VueGtag from 'vue-gtag'
 
 // Import Bootstrap CSS and JS
 import './assets/bootstrap.min.css'
