@@ -1,5 +1,6 @@
 <script setup>
 import {ref, computed, watch} from 'vue'
+
 const emit = defineEmits(['update:totalInvestment'])
 
 const shanchayPatra = ref(0)
@@ -17,42 +18,44 @@ watch(totalInvestment, (newValue) => {
 </script>
 
 <template>
-  <div class="investment-tracker">
-    <h3>Investments</h3>
-    <table class="table table-sm table-bordered">
-      <thead class="table-primary">
-      <tr>
-        <th scope="col">Investments</th>
-        <th scope="col">Amount</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>Shanchay Patra</td>
-        <td>
-          <input v-model.number="shanchayPatra" class="form-control form-control-sm" type="number" placeholder="0">
-        </td>
-      </tr>
-      <tr>
-        <td>DPS</td>
-        <td>
-          <input v-model.number="dps" class="form-control form-control-sm" type="number" placeholder="0">
-        </td>
-      </tr>
-      <tr>
-        <td>Mutual Fund</td>
-        <td>
-          <input v-model.number="mutualFund" class="form-control form-control-sm" type="number" placeholder="0">
-        </td>
-      </tr>
-      <tr class="table-info">
-        <td><strong>Total Investment</strong></td>
-        <td>
-          <input :value="totalInvestment" class="form-control form-control-sm" type="number" readonly>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+  <div class="card border-primary mb-3">
+    <div class="card-header">Investments</div>
+    <div class="card-body">
+      <table class="table table-sm table-bordered">
+        <thead class="table-primary">
+        <tr>
+          <th scope="col">Investments</th>
+          <th scope="col">Amount</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>Shanchay Patra</td>
+          <td>
+            <input v-model.number="shanchayPatra" class="form-control form-control-sm" placeholder="0" type="number">
+          </td>
+        </tr>
+        <tr>
+          <td>DPS</td>
+          <td>
+            <input v-model.number="dps" class="form-control form-control-sm" placeholder="0" type="number">
+          </td>
+        </tr>
+        <tr>
+          <td>Mutual Fund</td>
+          <td>
+            <input v-model.number="mutualFund" class="form-control form-control-sm" placeholder="0" type="number">
+          </td>
+        </tr>
+        <tr class="table-info">
+          <td><strong>Total Investment</strong></td>
+          <td>
+            <input :value="totalInvestment" class="form-control form-control-sm" readonly type="number">
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 

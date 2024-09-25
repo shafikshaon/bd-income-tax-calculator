@@ -9,10 +9,12 @@ const props = defineProps({
   totalInvestment: {
     type: Number,
     required: true
+  },
+  gender: {
+    type: String,
+    required: true
   }
 })
-
-const gender = ref('male')
 
 const oneThirdOfTotalEarning = computed(() => Math.floor(props.totalGrossPay / 3))
 const maxTaxFreeIncome = 450000
@@ -41,7 +43,7 @@ const taxSlabs = {
 const calculateTax = computed(() => {
   let remainingIncome = taxableIncome.value
   let totalTax = 0
-  const slabs = taxSlabs[gender.value]
+  const slabs = taxSlabs[props.gender]
   const taxDetails = []
 
   for (const slab of slabs) {
@@ -84,14 +86,6 @@ const formatNumber = (num) => num.toLocaleString()
 <template>
   <div class="tax-calculation-summary">
     <h2>Tax Summary</h2>
-
-    <div class="form-group mb-3">
-      <label for="gender">Select Gender:</label>
-      <select v-model="gender" id="gender" class="form-select">
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-      </select>
-    </div>
 
     <table class="table table-sm table-bordered">
       <tbody>

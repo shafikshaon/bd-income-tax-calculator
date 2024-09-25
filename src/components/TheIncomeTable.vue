@@ -45,6 +45,7 @@ watch(totalGrossPay, (newValue) => {
   emit('update:totalGrossPay', newValue)
 })
 
+
 const formatNumber = (num) => num.toLocaleString()
 
 const handleManualEdit = (field) => {
@@ -55,45 +56,47 @@ const handleManualEdit = (field) => {
 </script>
 
 <template>
-  <div class="income-component">
-    <h2>Income Details</h2>
-    <table class="table table-sm">
-      <thead>
-      <tr>
-        <th>Particulars</th>
-        <th>Payment</th>
-        <th>Total</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="(value, key) in incomeFields" :key="key">
-        <td>{{ key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1') }}</td>
-        <td>
-          <input
-              v-model.number="incomeFields[key].value"
-              @input="handleManualEdit(key)"
-              class="form-control form-control-sm"
-              type="number"
-          >
-        </td>
-        <td>{{ formatNumber(incomeFields[key].value) }}</td>
-      </tr>
-      <tr class="table-primary">
-        <td><strong>Total Gross Pay</strong></td>
-        <td colspan="2">{{ formatNumber(totalGrossPay) }}</td>
-      </tr>
-      <tr>
-        <td>AIT</td>
-        <td colspan="2">
-          <input v-model.number="ait" class="form-control form-control-sm" type="number">
-        </td>
-      </tr>
-      <tr class="table-success">
-        <td><strong>Net Pay</strong></td>
-        <td colspan="2">{{ formatNumber(netPay) }}</td>
-      </tr>
-      </tbody>
-    </table>
+  <div class="card border-primary mb-3">
+    <div class="card-header">Income Details</div>
+    <div class="card-body">
+      <table class="table table-sm">
+        <thead>
+        <tr>
+          <th>Particulars</th>
+          <th>Payment</th>
+          <th>Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(value, key) in incomeFields" :key="key">
+          <td>{{ key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1') }}</td>
+          <td>
+            <input
+                v-model.number="incomeFields[key].value"
+                @input="handleManualEdit(key)"
+                class="form-control form-control-sm"
+                type="number"
+            >
+          </td>
+          <td>{{ formatNumber(incomeFields[key].value) }}</td>
+        </tr>
+        <tr class="table-primary">
+          <td><strong>Total Gross Pay</strong></td>
+          <td colspan="2">{{ formatNumber(totalGrossPay) }}</td>
+        </tr>
+        <tr>
+          <td>AIT</td>
+          <td colspan="2">
+            <input v-model.number="ait" class="form-control form-control-sm" type="number">
+          </td>
+        </tr>
+        <tr class="table-success">
+          <td><strong>Net Pay</strong></td>
+          <td colspan="2">{{ formatNumber(netPay) }}</td>
+        </tr>
+        </tbody>
+      </table>
+       </div>
   </div>
 </template>
 
