@@ -1,6 +1,13 @@
 <script setup>
 import { ref, computed, watch } from 'vue'
 
+const convertToNumber = (value) => {
+  if (value === '' || value === null || value === undefined) {
+    return 0;
+  }
+  return Number(value);
+};
+
 const emit = defineEmits(['update:totalGrossPay'])
 
 const manuallyEdited = ref({
@@ -23,6 +30,7 @@ const incomeFields = {
 }
 
 watch(() => incomeFields.basic.value, (newBasic) => {
+  newBasic = convertToNumber(newBasic);
   if (!manuallyEdited.value.houseRent) {
     incomeFields.houseRent.value = newBasic * 0.5
   }
@@ -35,18 +43,18 @@ watch(() => incomeFields.basic.value, (newBasic) => {
 })
 
 const totalGrossPay = computed(() =>
-    Object.values(incomeFields).reduce((sum, field) => sum + field.value, 0)
+    Object.values(incomeFields).reduce((sum, field) => sum + convertToNumber(field.value), 0)
 )
 
 const ait = ref(46000)
-const netPay = computed(() => totalGrossPay.value - ait.value)
+const netPay = computed(() => totalGrossPay.value - convertToNumber(ait.value))
 
 watch(totalGrossPay, (newValue) => {
   emit('update:totalGrossPay', newValue)
 })
 
 
-const formatNumber = (num) => num.toLocaleString()
+const formatNumber = (num) => convertToNumber(num).toLocaleString()
 
 const handleManualEdit = (field) => {
   if (['houseRent', 'conveyance', 'medicalAllowance'].includes(field)) {
@@ -83,6 +91,13 @@ const handleManualEdit = (field) => {
         <tr class="table-primary">
           <td><strong>Total Gross Pay</strong></td>
           <td colspan="2">{{ formatNumber(totalGrossPay) }}</td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <small class="text-muted">
+              Advance Income Tax [Deducted by Company]
+            </small>
+          </td>
         </tr>
         <tr>
           <td>AIT</td>

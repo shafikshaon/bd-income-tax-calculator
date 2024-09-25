@@ -1,6 +1,13 @@
 <script setup>
 import {ref, computed, watch} from 'vue'
 
+const convertToNumber = (value) => {
+  if (value === '' || value === null || value === undefined) {
+    return 0;
+  }
+  return Number(value);
+};
+
 const emit = defineEmits(['update:totalInvestment'])
 
 const shanchayPatra = ref(0)
@@ -8,7 +15,9 @@ const dps = ref(120000)
 const mutualFund = ref(800000)
 
 const totalInvestment = computed(() => {
-  return shanchayPatra.value + dps.value + mutualFund.value
+  return convertToNumber(shanchayPatra.value) +
+      convertToNumber(dps.value) +
+      convertToNumber(mutualFund.value);
 })
 
 watch(totalInvestment, (newValue) => {
