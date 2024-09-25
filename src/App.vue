@@ -7,6 +7,8 @@ import TheIncomeTable from "@/components/TheIncomeTable.vue";
 import TheInvestmentTable from "@/components/TheInvestmentTable.vue";
 import TheTaxCalculationSummary from "@/components/TheTaxCalculationSummary.vue";
 import TheGeneralInfo from "@/components/TheGeneralInfo.vue";
+import TheIncomeInvestmentSummary from "@/components/TheEarningSummary.vue";
+import TheEarningSummary from "@/components/TheEarningSummary.vue";
 
 const totalGrossPay = ref(0)
 const totalInvestment = ref(0)
@@ -43,6 +45,12 @@ const updateTotalInvestment = (newValue) => {
         </div>
         <div class="col-4">
           <the-investment-table @update:totalInvestment="updateTotalInvestment"/>
+
+          <the-earning-summary
+              :gender="gender"
+              :totalGrossPay="totalGrossPay"
+              :totalInvestment="totalInvestment"
+          />
         </div>
         <div class="col-4">
           <the-tax-calculation-summary
