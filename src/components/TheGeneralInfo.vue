@@ -5,11 +5,15 @@ const gender = ref('male')
 const age_group = ref('below')
 const minimum_tax = ref(5000)
 
-const genderEmit = defineEmits(['update:gender'])
+const emit = defineEmits(['update:gender', 'update:ageGroup'])
 
 watch(gender, (newValue) => {
-  genderEmit('update:gender', newValue)
+  emit('update:gender', newValue)
 })
+watch(age_group, (newValue) => {
+  emit('update:ageGroup', newValue)
+})
+
 
 </script>
 

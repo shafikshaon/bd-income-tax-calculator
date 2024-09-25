@@ -10,10 +10,6 @@ const props = defineProps({
     type: Number,
     required: true
   },
-  gender: {
-    type: String,
-    required: true
-  }
 })
 
 const oneThirdOfTotalEarning = computed(() => Math.floor(props.totalGrossPay / 3))

@@ -11,8 +11,8 @@ const convertToNumber = (value) => {
 const emit = defineEmits(['update:totalInvestment'])
 
 const shanchayPatra = ref(0)
-const dps = ref(120000)
-const mutualFund = ref(800000)
+const dps = ref(0)
+const mutualFund = ref(0)
 
 const totalInvestment = computed(() => {
   return convertToNumber(shanchayPatra.value) +

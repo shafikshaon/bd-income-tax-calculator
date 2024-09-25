@@ -8,7 +8,7 @@ const convertToNumber = (value) => {
   return Number(value);
 };
 
-const emit = defineEmits(['update:totalGrossPay'])
+const emit = defineEmits(['update:totalGrossPay','update:advanceIncomeTax','update:minimumTax'])
 
 const manuallyEdited = ref({
   houseRent: false,
@@ -17,15 +17,15 @@ const manuallyEdited = ref({
 })
 
 const incomeFields = {
-  basic: ref(807000),
-  houseRent: ref(403500),
-  conveyance: ref(201750),
-  medicalAllowance: ref(201750),
+  basic: ref(0),
+  houseRent: ref(0),
+  conveyance: ref(0),
+  medicalAllowance: ref(0),
   leaveEncashment: ref(0),
   performanceBonus: ref(0),
   yearlyBonus: ref(0),
-  festivalBonus: ref(147000),
-  overtimeAllowance: ref(5694),
+  festivalBonus: ref(0),
+  overtimeAllowance: ref(0),
   transportation: ref(0)
 }
 
@@ -46,13 +46,15 @@ const totalGrossPay = computed(() =>
     Object.values(incomeFields).reduce((sum, field) => sum + convertToNumber(field.value), 0)
 )
 
-const ait = ref(46000)
-const netPay = computed(() => totalGrossPay.value - convertToNumber(ait.value))
+const ait = ref(0)
+const netPay = computed(() => convertToNumber(totalGrossPay.value) - convertToNumber(ait.value))
 
 watch(totalGrossPay, (newValue) => {
   emit('update:totalGrossPay', newValue)
 })
-
+watch(ait, (newValue) => {
+  emit('update:advanceIncomeTax', newValue)
+})
 
 const formatNumber = (num) => convertToNumber(num).toLocaleString()
 
@@ -107,7 +109,7 @@ const handleManualEdit = (field) => {
         </tr>
         <tr class="table-success">
           <td><strong>Net Pay</strong></td>
-          <td colspan="2">{{ formatNumber(netPay) }}</td>
+          <td colspan="2" class="">{{ formatNumber(netPay) }}</td>
         </tr>
         </tbody>
       </table>
