@@ -10,5 +10,9 @@ import 'bootstrap/dist/js/bootstrap.js'
 
 const app = createApp(App)
 
+app.use(VueGtag, {
+    config: { id: 'G-2XBRE28Z4Y' }
+})
+
 // Mount the app
 app.mount('#app')

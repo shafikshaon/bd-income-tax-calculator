@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [
     vue(),
   ],
-  base: '/bd-income-tax-calculator/',
+  base: process.env.NODE_ENV === 'production' ? '/bd-income-tax-calculator/' : '/',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
