@@ -30,6 +30,7 @@ watch(totalInvestment, (newValue) => {
   <div class="card border-primary mb-3">
     <div class="card-header">Investments</div>
     <div class="card-body">
+      <div class="table-responsive">
       <table class="table table-sm table-bordered">
         <thead class="table-primary">
         <tr>
@@ -64,6 +65,7 @@ watch(totalInvestment, (newValue) => {
         </tr>
         </tbody>
       </table>
+      </div>
     </div>
   </div>
 </template>

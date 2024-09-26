@@ -69,6 +69,7 @@ const handleManualEdit = (field) => {
   <div class="card border-primary mb-3">
     <div class="card-header">Income Details</div>
     <div class="card-body">
+      <div class="table-responsive">
       <table class="table table-sm">
         <thead>
         <tr>
@@ -113,6 +114,7 @@ const handleManualEdit = (field) => {
         </tr>
         </tbody>
       </table>
+       </div>
        </div>
   </div>
 </template>

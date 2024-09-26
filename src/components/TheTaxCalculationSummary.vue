@@ -86,7 +86,7 @@ const formatNumber = (num) => num.toLocaleString()
 <template>
   <div class="tax-calculation-summary">
     <h2>Tax Summary</h2>
-
+<div class="table-responsive">
     <table class="table table-sm table-bordered">
       <tbody>
       <tr class="table-success">
@@ -125,8 +125,10 @@ const formatNumber = (num) => num.toLocaleString()
       </tr>
       </tbody>
     </table>
+</div>
 
     <h3 class="mt-4">Income Tax Slab</h3>
+    <div class="table-responsive">
     <table class="table table-sm table-bordered">
       <thead>
       <tr>
@@ -154,8 +156,10 @@ const formatNumber = (num) => num.toLocaleString()
       </tr>
       </tfoot>
     </table>
-
+    </div>
     <h3 class="mt-4">Rebate Calculation</h3>
+
+    <div class="table-responsive">
     <table class="table table-sm table-bordered">
       <tbody>
       <tr>
@@ -189,7 +193,7 @@ const formatNumber = (num) => num.toLocaleString()
       </tr>
       </tbody>
     </table>
-
+    </div>
     <h3 class="mt-4">Net Tax</h3>
     <div class="alert alert-primary">
       <strong>Net Tax: {{ formatNumber(netTax) }}</strong>

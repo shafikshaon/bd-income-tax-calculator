@@ -72,8 +72,7 @@ const formatNumber = (num) => num.toLocaleString()
 
 <style scoped>
 .tax-calculation-summary {
-  max-width: 600px;
-  margin: 0 auto;
+  /* Remove max-width */
 }
 
 .table {

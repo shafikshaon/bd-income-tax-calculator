@@ -76,7 +76,7 @@ const formatNumber = (num) => num.toLocaleString()
   <div class="card border-primary mb-3">
     <div class="card-header">Tax Slab</div>
     <div class="card-body">
-  <div class="tax-calculation-summary">
+  <div class="tax-calculation-summary table-responsive">
     <table class="table table-sm table-bordered">
       <thead>
       <tr>
