@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://shafikshaon.github.io/bd-income-tax-calculator/sitemap.xml
