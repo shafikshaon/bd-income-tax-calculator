@@ -1,29 +1,24 @@
-# bd-income-tax-calculator
+# BD Income Tax Calculator
 
-This template should help get you started developing with Vue 3 in Vite.
+## Overview
 
-## Recommended IDE Setup
+BD Income Tax Calculator is a web-based tool designed to help Bangladeshi citizens estimate their income tax liabilities. This Vue.js application provides an easy-to-use interface for inputting income details and automatically calculates tax based on the latest Bangladesh tax laws.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## Features
 
-## Customize configuration
+- User-friendly interface for inputting income and investment details
+- Automatic calculation of taxable income and tax liability
+- Consideration of different tax slabs based on gender and special categories
+- Investment-based tax rebate calculations
+- Responsive design for both desktop and mobile devices
+- Option to download calculations as a PDF report
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+## Live Demo
 
-## Project Setup
+[Visit the live application](https://shafikshaon.github.io/bd-income-tax-calculator/)
 
-```sh
-npm install
-```
+## Technology Stack
 
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
+- Vue.js 3
+- Bootstrap 4
+- html2pdf.js for PDF generation
