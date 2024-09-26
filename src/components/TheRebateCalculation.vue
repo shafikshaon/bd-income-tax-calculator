@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue'
+import PdfDownloadButton from "@/components/ThePdfDownloadButton.vue";
 
 const convertToNumber = (value) => {
   if (value === '' || value === null || value === undefined) {
@@ -136,6 +137,10 @@ const formatNumber = (num) => num.toLocaleString()
     <h3 class="mt-4">Net Tax</h3>
     <div class="alert alert-primary">
       <strong>Net Tax: {{ formatNumber(netTax) }}</strong>
+    </div>
+
+    <div class="text-center mt-4">
+      <PdfDownloadButton />
     </div>
   </div>
     </div>
