@@ -22,7 +22,8 @@ const router = createRouter({
         { path: '/', name: 'Home', component: TheTaxCalculator },
         { path: '/about', name: 'About', component: TheAboutPage },
         { path: '/data-policy', name: 'Data Policy', component: TheDataPolicy },
-        { path: '/bd-income-tax-calculator', redirect: '/' }
+        { path: '/bd-income-tax-calculator', redirect: '/' },
+        { path: '/', redirect: '/bd-income-tax-calculator' }
     ]
 })
 
