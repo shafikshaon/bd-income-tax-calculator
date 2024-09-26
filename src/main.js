@@ -17,11 +17,12 @@ import TheDataPolicy from "@/components/TheDataPolicy.vue";
 
 // Create router instance
 const router = createRouter({
-    history: createWebHistory(),
+    history: createWebHistory('/bd-income-tax-calculator/'),
     routes: [
         { path: '/', name: 'Home', component: TheTaxCalculator },
         { path: '/about', name: 'About', component: TheAboutPage },
         { path: '/data-policy', name: 'Data Policy', component: TheDataPolicy },
+        { path: '/bd-income-tax-calculator', redirect: '/' }
     ]
 })
 
