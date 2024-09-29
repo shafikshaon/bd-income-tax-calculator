@@ -13,8 +13,6 @@ import TheRebateCalculation from "@/components/TheRebateCalculation.vue";
 const totalGrossPay = ref(0)
 const totalInvestment = ref(0)
 const gender = ref("male")
-const ageGroup = ref("below")
-const minimumTax = ref(0)
 const advanceIncomeTax = ref(0)
 
 const updateTotalGrossPay = (newValue) => {
@@ -26,14 +24,6 @@ const updateGender = (newValue) => {
 
 const updateTotalInvestment = (newValue) => {
   totalInvestment.value = newValue
-}
-
-const updateAgeGroup = (newValue) => {
-  ageGroup.value = newValue
-}
-
-const updateMinimumTax = (newValue) => {
-  minimumTax.value = newValue
 }
 
 const updateAdvanceIncomeTax = (newValue) => {

@@ -29,16 +29,32 @@ const taxSlabs = {
   male: [
     { limit: 350000, rate: 0 },
     { limit: 100000, rate: 0.05 },
-    { limit: 300000, rate: 0.10 },
-    { limit: 400000, rate: 0.15 },
+    { limit: 400000, rate: 0.10 },
+    { limit: 500000, rate: 0.15 },
     { limit: 500000, rate: 0.20 },
     { limit: Infinity, rate: 0.25 }
   ],
   female: [
     { limit: 400000, rate: 0 },
     { limit: 100000, rate: 0.05 },
-    { limit: 300000, rate: 0.10 },
-    { limit: 400000, rate: 0.15 },
+    { limit: 400000, rate: 0.10 },
+    { limit: 500000, rate: 0.15 },
+    { limit: 500000, rate: 0.20 },
+    { limit: Infinity, rate: 0.25 }
+  ],
+  specially_abled: [
+    { limit: 475000, rate: 0 },
+    { limit: 100000, rate: 0.05 },
+    { limit: 400000, rate: 0.10 },
+    { limit: 500000, rate: 0.15 },
+    { limit: 500000, rate: 0.20 },
+    { limit: Infinity, rate: 0.25 }
+  ],
+  freedom_fighter: [
+    { limit: 500000, rate: 0 },
+    { limit: 100000, rate: 0.05 },
+    { limit: 400000, rate: 0.10 },
+    { limit: 500000, rate: 0.15 },
     { limit: 500000, rate: 0.20 },
     { limit: Infinity, rate: 0.25 }
   ]
