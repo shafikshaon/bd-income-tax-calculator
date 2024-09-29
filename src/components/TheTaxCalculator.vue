@@ -1,11 +1,8 @@
 <script setup>
 import {ref} from 'vue'
-import NavBar from "@/components/TheNavbar.vue";
 import TheIncomeTable from "@/components/TheIncomeTable.vue";
 import TheInvestmentTable from "@/components/TheInvestmentTable.vue";
-import TheTaxCalculationSummary from "@/components/TheTaxCalculationSummary.vue";
 import TheGeneralInfo from "@/components/TheGeneralInfo.vue";
-import TheIncomeInvestmentSummary from "@/components/TheEarningSummary.vue";
 import TheEarningSummary from "@/components/TheEarningSummary.vue";
 import TheIncomeTaxSlab from "@/components/TheIncomeTaxSlab.vue";
 import TheRebateCalculation from "@/components/TheRebateCalculation.vue";

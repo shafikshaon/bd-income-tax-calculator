@@ -10,7 +10,6 @@ watch(gender, (newValue) => {
   emit('update:gender', newValue)
 })
 
-
 </script>
 
 <template>

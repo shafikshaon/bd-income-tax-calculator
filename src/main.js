@@ -8,9 +8,6 @@ import VueGtag from 'vue-gtag'
 
 // Import Bootstrap CSS and JS
 import './assets/bootstrap.min.css'
-import 'bootstrap/dist/js/bootstrap.js'
-import 'bootstrap'
-
 
 // Import your view components
 import TheAboutPage from "@/components/TheAboutPage.vue";
