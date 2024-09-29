@@ -14,11 +14,11 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'  # Using a more recent Node.js version
-      - name: Install dependencies
-        run: npm ci
-      - name: Build
-        run: npm run build
+          node-version: '18'
+      - run: npm ci
+      - run: npm run build
+      - name: Copy 404.html
+        run: cp public/404.html dist/
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:

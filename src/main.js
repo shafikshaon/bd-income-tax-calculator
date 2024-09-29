@@ -2,7 +2,7 @@ import './assets/main.css'
 import './assets/grid.css'
 
 import { createApp } from 'vue'
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import App from './App.vue'
 import VueGtag from 'vue-gtag'
 
@@ -17,7 +17,7 @@ import TheDataPolicy from "@/components/TheDataPolicy.vue";
 
 // Create router instance
 const router = createRouter({
-    history: createWebHistory('/bd-income-tax-calculator/'),
+    history: createWebHashHistory(),
     routes: [
         { path: '/', name: 'Home', component: TheTaxCalculator },
         { path: '/about', name: 'About', component: TheAboutPage },
