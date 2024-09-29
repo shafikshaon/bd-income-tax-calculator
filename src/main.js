@@ -8,6 +8,7 @@ import VueGtag from 'vue-gtag'
 
 // Import Bootstrap CSS and JS
 import './assets/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 
 // Import your view components
 import TheAboutPage from "@/components/TheAboutPage.vue";
@@ -31,7 +32,7 @@ app.use(router)
 
 app.use(VueGtag, {
     config: { id: 'G-2XBRE28Z4Y' }
-}, router) // Pass router to VueGtag for automatic page tracking
+}, router)
 
 // Mount the app
 app.mount('#app')
