@@ -6,7 +6,9 @@
       <div class="card-body">
         <h2 class="card-title">The Project</h2>
         <p class="card-text">
-          <strong>Income Tax Calculator (Bangladesh) / Individual</strong> is a tool designed to help Bangladeshi citizens calculate their income tax. It provides a straightforward interface for estimating tax liabilities based on current Bangladesh tax laws.
+          <strong>Income Tax Calculator (Bangladesh) / Individual</strong> is a tool designed to help Bangladeshi
+          citizens calculate their income tax. It provides a straightforward interface for estimating tax liabilities
+          based on current Bangladesh tax laws.
         </p>
       </div>
     </div>
@@ -31,7 +33,9 @@
           This calculator was developed by Shafikur Rahman Shaon, a software engineer.
         </p>
         <p class="card-text">
-          For more information about the developer, visit his <a href="https://linkedin.com/in/shafikshaon" target="_blank" rel="noopener noreferrer">LinkedIn profile</a>.
+          For more information about the developer, visit his <a href="https://linkedin.com/in/shafikshaon"
+                                                                 rel="noopener noreferrer" target="_blank">LinkedIn
+          profile</a>.
         </p>
       </div>
     </div>
@@ -40,7 +44,8 @@
       <div class="card-body">
         <h2 class="card-title">Disclaimer</h2>
         <p class="card-text">
-          This calculator is for informational purposes only and should not be considered as professional tax advice. Please consult with a qualified tax professional for your specific tax situation.
+          This calculator is for informational purposes only and should not be considered as professional tax advice.
+          Please consult with a qualified tax professional for your specific tax situation.
         </p>
       </div>
     </div>

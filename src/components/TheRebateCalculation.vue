@@ -186,13 +186,13 @@ const formatNumber = (num) => {
           </tr>
           <tr class="table-info">
             <td><strong>Total TDS (AIT - Net Tax)</strong></td>
-            <td class="text-end" :class="{ 'text-danger': tdsAmount < 0 }">
+            <td :class="{ 'text-danger': tdsAmount < 0 }" class="text-end">
               <strong>{{ formatNumber(tdsAmount) }}</strong>
             </td>
           </tr>
           <tr class="table-warning">
             <td><strong>Monthly TDS</strong></td>
-            <td class="text-end" :class="{ 'text-danger': monthlyTDS < 0 }">
+            <td :class="{ 'text-danger': monthlyTDS < 0 }" class="text-end">
               <strong>{{ formatNumber(monthlyTDS) }}</strong>
             </td>
           </tr>

@@ -6,7 +6,9 @@
       <div class="card-body">
         <h2 class="card-title">No Collection of Tax Data</h2>
         <p class="card-text">
-          <strong>Income Tax Calculator (Bangladesh) / Individual</strong> does not collect, store, or transmit any of the tax-related information you enter. All calculations are performed locally in your browser, and no personal or financial data is sent to our servers.
+          <strong>Income Tax Calculator (Bangladesh) / Individual</strong> does not collect, store, or transmit any of
+          the tax-related information you enter. All calculations are performed locally in your browser, and no personal
+          or financial data is sent to our servers.
         </p>
       </div>
     </div>
@@ -15,7 +17,8 @@
       <div class="card-body">
         <h2 class="card-title">Use of Google Analytics</h2>
         <p class="card-text">
-          We use Google Analytics to collect anonymous usage data. This helps us understand how visitors use our site, which pages are most popular, and how we can improve the user experience. The information collected includes:
+          We use Google Analytics to collect anonymous usage data. This helps us understand how visitors use our site,
+          which pages are most popular, and how we can improve the user experience. The information collected includes:
         </p>
         <ul>
           <li>Pages visited</li>
@@ -33,7 +36,8 @@
       <div class="card-body">
         <h2 class="card-title">Cookies</h2>
         <p class="card-text">
-          Google Analytics uses cookies to collect usage data. You can opt-out of Google Analytics tracking by using browser extensions or adjusting your browser settings to block cookies from this site.
+          Google Analytics uses cookies to collect usage data. You can opt-out of Google Analytics tracking by using
+          browser extensions or adjusting your browser settings to block cookies from this site.
         </p>
       </div>
     </div>

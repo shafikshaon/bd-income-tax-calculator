@@ -1,5 +1,5 @@
 <template>
-  <button @click="downloadPdf" class="btn btn-primary">
+  <button class="btn btn-primary" @click="downloadPdf">
     Download PDF
   </button>
 </template>
@@ -30,7 +30,7 @@ export default {
         const opt = {
           margin: 5,
           filename: 'bd-income-tax-calculation.pdf',
-          image: { type: 'jpeg', quality: 0.98 },
+          image: {type: 'jpeg', quality: 0.98},
           html2canvas: {
             scale: 1.5,
             useCORS: true,
@@ -45,13 +45,13 @@ export default {
         };
 
         html2pdf().set(opt).from(element).save()
-            .then(() => {
-              restoreStyles();
-            })
-            .catch((error) => {
-              console.error('PDF generation failed:', error);
-              restoreStyles();
-            });
+          .then(() => {
+            restoreStyles();
+          })
+          .catch((error) => {
+            console.error('PDF generation failed:', error);
+            restoreStyles();
+          });
       }, 1000);
     }
   }

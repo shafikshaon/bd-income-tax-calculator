@@ -1,5 +1,5 @@
 <script setup>
-import {ref} from 'vue'
+import { ref } from 'vue'
 import TheIncomeTable from "@/components/TheIncomeTable.vue";
 import TheInvestmentTable from "@/components/TheInvestmentTable.vue";
 import TheGeneralInfo from "@/components/TheGeneralInfo.vue";
@@ -42,30 +42,30 @@ const updateAdvanceIncomeTax = (newValue) => {
       <div class="row mb-3">
         <div class="col-lg-4 col-md-6 mb-3">
           <the-income-table
-              @update:totalGrossPay="updateTotalGrossPay"
-              @update:advanceIncomeTax="updateAdvanceIncomeTax"
+            @update:totalGrossPay="updateTotalGrossPay"
+            @update:advanceIncomeTax="updateAdvanceIncomeTax"
           />
         </div>
         <div class="col-lg-4 col-md-6 mb-3">
           <the-investment-table
-              @update:totalInvestment="updateTotalInvestment"
+            @update:totalInvestment="updateTotalInvestment"
           />
           <the-earning-summary
-              :totalGrossPay="totalGrossPay"
-              :totalInvestment="totalInvestment"
+            :totalGrossPay="totalGrossPay"
+            :totalInvestment="totalInvestment"
           />
         </div>
         <div class="col-lg-4 col-md-12 mb-3">
           <the-income-tax-slab
-              :gender="gender"
-              :totalGrossPay="totalGrossPay"
-              :totalInvestment="totalInvestment"
+            :gender="gender"
+            :totalGrossPay="totalGrossPay"
+            :totalInvestment="totalInvestment"
           />
           <the-rebate-calculation
-              :gender="gender"
-              :totalGrossPay="totalGrossPay"
-              :totalInvestment="totalInvestment"
-              :advanceIncomeTax="advanceIncomeTax"
+            :advanceIncomeTax="advanceIncomeTax"
+            :gender="gender"
+            :totalGrossPay="totalGrossPay"
+            :totalInvestment="totalInvestment"
           />
         </div>
       </div>

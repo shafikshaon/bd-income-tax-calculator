@@ -1,5 +1,5 @@
 <script setup>
-import {ref, watch} from "vue";
+import { ref, watch } from "vue";
 
 const gender = ref('male')
 const minimum_tax = ref(5000)
@@ -20,7 +20,7 @@ watch(gender, (newValue) => {
         <div class="row">
           <div class="col-md-4 mb-3">
             <label for="gender">Select Gender/Privilege:</label>
-            <select v-model="gender" id="gender" class="form-control">
+            <select id="gender" v-model="gender" class="form-control">
               <option value="male">Male</option>
               <option value="female">Female</option>
               <option value="specially_abled">Specially-abled</option>
@@ -29,7 +29,8 @@ watch(gender, (newValue) => {
           </div>
           <div class="col-md-4 mb-3">
             <label for="minimum_tax">Minimum tax in your area:</label>
-            <input type="number" class="form-control" id="minimum_tax" placeholder="Minimum tax in your area" aria-label="Minimum tax in your area" v-model="minimum_tax">
+            <input id="minimum_tax" v-model="minimum_tax" aria-label="Minimum tax in your area" class="form-control"
+                   placeholder="Minimum tax in your area" type="number">
           </div>
         </div>
       </div>

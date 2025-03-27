@@ -17,12 +17,12 @@ import TheDataPolicy from "@/components/TheDataPolicy.vue";
 
 // Create router instance
 const router = createRouter({
-    history: createWebHashHistory(),
-    routes: [
-        { path: '/', name: 'Home', component: TheTaxCalculator },
-        { path: '/about', name: 'About', component: TheAboutPage },
-        { path: '/data-policy', name: 'Data Policy', component: TheDataPolicy },
-    ]
+  history: createWebHashHistory(),
+  routes: [
+    {path: '/', name: 'Home', component: TheTaxCalculator},
+    {path: '/about', name: 'About', component: TheAboutPage},
+    {path: '/data-policy', name: 'Data Policy', component: TheDataPolicy},
+  ]
 })
 
 const app = createApp(App)
@@ -31,7 +31,7 @@ const app = createApp(App)
 app.use(router)
 
 app.use(VueGtag, {
-    config: { id: 'G-2XBRE28Z4Y' }
+  config: {id: 'G-2XBRE28Z4Y'}
 }, router)
 
 // Mount the app
