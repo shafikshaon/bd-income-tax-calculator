@@ -112,7 +112,7 @@ const netTax = computed(() => {
 const tdsAmount = computed(() => {
   const ait = convertToNumber(props.advanceIncomeTax)
   const net = convertToNumber(netTax.value)
-  return Math.max(net - ait, 0)
+  return Math.max(ait - net, 0)
 })
 
 // Calculate monthly TDS by dividing by 12
