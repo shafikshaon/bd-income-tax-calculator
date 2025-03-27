@@ -6,7 +6,7 @@
       <div class="card-body">
         <h2 class="card-title">No Collection of Tax Data</h2>
         <p class="card-text">
-          BD Income Tax Calculator does not collect, store, or transmit any of the tax-related information you enter. All calculations are performed locally in your browser, and no personal or financial data is sent to our servers.
+          Income Tax Calculator (Bangladesh) / Individual does not collect, store, or transmit any of the tax-related information you enter. All calculations are performed locally in your browser, and no personal or financial data is sent to our servers.
         </p>
       </div>
     </div>

@@ -1,12 +1,12 @@
 <template>
   <div class="container mt-5">
-    <h1 class="mb-4">About BD Income Tax Calculator</h1>
+    <h1 class="mb-4">About Income Tax Calculator (Bangladesh) / Individual</h1>
 
     <div class="card mb-4">
       <div class="card-body">
         <h2 class="card-title">The Project</h2>
         <p class="card-text">
-          BD Income Tax Calculator is a tool designed to help Bangladeshi citizens calculate their income tax. It provides a straightforward interface for estimating tax liabilities based on current Bangladesh tax laws.
+          Income Tax Calculator (Bangladesh) / Individual is a tool designed to help Bangladeshi citizens calculate their income tax. It provides a straightforward interface for estimating tax liabilities based on current Bangladesh tax laws.
         </p>
       </div>
     </div>
