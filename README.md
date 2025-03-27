@@ -1,8 +1,8 @@
-# BD Income Tax Calculator
+# Income Tax Calculator (Bangladesh) / Individual
 
 ## Overview
 
-BD Income Tax Calculator is a web-based tool designed to help Bangladeshi citizens estimate their income tax liabilities. This Vue.js application provides an easy-to-use interface for inputting income details and automatically calculates tax based on the latest Bangladesh tax laws.
+**Income Tax Calculator (Bangladesh) / Individual** is a web-based tool designed to help Bangladeshi citizens estimate their income tax liabilities. This Vue.js application provides an easy-to-use interface for inputting income details and automatically calculates tax based on the latest Bangladesh tax laws.
 
 ## Features
 
