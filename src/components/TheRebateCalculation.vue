@@ -35,36 +35,36 @@ const taxableIncome = computed(() => props.totalGrossPay - taxFreeIncome.value)
 
 const taxSlabs = {
   male: [
-    { limit: 350000, rate: 0 },
-    { limit: 100000, rate: 0.05 },
-    { limit: 400000, rate: 0.10 },
-    { limit: 500000, rate: 0.15 },
-    { limit: 500000, rate: 0.20 },
-    { limit: Infinity, rate: 0.25 }
+    {limit: 350000, rate: 0},
+    {limit: 100000, rate: 0.05},
+    {limit: 400000, rate: 0.10},
+    {limit: 500000, rate: 0.15},
+    {limit: 500000, rate: 0.20},
+    {limit: Infinity, rate: 0.25}
   ],
   female: [
-    { limit: 400000, rate: 0 },
-    { limit: 100000, rate: 0.05 },
-    { limit: 400000, rate: 0.10 },
-    { limit: 500000, rate: 0.15 },
-    { limit: 500000, rate: 0.20 },
-    { limit: Infinity, rate: 0.25 }
+    {limit: 400000, rate: 0},
+    {limit: 100000, rate: 0.05},
+    {limit: 400000, rate: 0.10},
+    {limit: 500000, rate: 0.15},
+    {limit: 500000, rate: 0.20},
+    {limit: Infinity, rate: 0.25}
   ],
   specially_abled: [
-    { limit: 475000, rate: 0 },
-    { limit: 100000, rate: 0.05 },
-    { limit: 400000, rate: 0.10 },
-    { limit: 500000, rate: 0.15 },
-    { limit: 500000, rate: 0.20 },
-    { limit: Infinity, rate: 0.25 }
+    {limit: 475000, rate: 0},
+    {limit: 100000, rate: 0.05},
+    {limit: 400000, rate: 0.10},
+    {limit: 500000, rate: 0.15},
+    {limit: 500000, rate: 0.20},
+    {limit: Infinity, rate: 0.25}
   ],
   freedom_fighter: [
-    { limit: 500000, rate: 0 },
-    { limit: 100000, rate: 0.05 },
-    { limit: 400000, rate: 0.10 },
-    { limit: 500000, rate: 0.15 },
-    { limit: 500000, rate: 0.20 },
-    { limit: Infinity, rate: 0.25 }
+    {limit: 500000, rate: 0},
+    {limit: 100000, rate: 0.05},
+    {limit: 400000, rate: 0.10},
+    {limit: 500000, rate: 0.15},
+    {limit: 500000, rate: 0.20},
+    {limit: Infinity, rate: 0.25}
   ]
 }
 
@@ -89,7 +89,7 @@ const calculateTax = computed(() => {
     })
   }
 
-  return { totalTax, taxDetails }
+  return {totalTax, taxDetails}
 })
 
 const rebateCalculation = computed(() => {
@@ -112,7 +112,7 @@ const netTax = computed(() => {
 const tdsAmount = computed(() => {
   const ait = convertToNumber(props.advanceIncomeTax)
   const net = convertToNumber(netTax.value)
-  return ait - net // Allow negative values
+  return net - ait // Allow negative values
 })
 
 // Calculate monthly TDS by dividing by 12
@@ -200,7 +200,7 @@ const formatNumber = (num) => {
         </table>
 
         <div class="text-center mt-4">
-          <PdfDownloadButton />
+          <PdfDownloadButton/>
         </div>
       </div>
     </div>
@@ -212,30 +212,38 @@ const formatNumber = (num) => {
   max-width: 600px;
   margin: 0 auto;
 }
+
 .table {
   margin-bottom: 0.5rem;
 }
+
 td {
   padding: 0.25rem 0.5rem;
 }
+
 .text-end {
   text-align: right;
 }
+
 .text-danger {
   color: #dc3545 !important;
 }
+
 .table-success {
   background-color: #28a745;
   color: white;
 }
+
 .table-info {
   background-color: #17a2b8;
   color: white;
 }
+
 .table-warning {
   background-color: #ffc107;
   color: black;
 }
+
 .text-muted {
   font-size: 0.8em;
 }
