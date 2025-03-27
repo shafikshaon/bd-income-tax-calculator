@@ -6,7 +6,7 @@
       <div class="card-body">
         <h2 class="card-title">The Project</h2>
         <p class="card-text">
-          Income Tax Calculator (Bangladesh) / Individual is a tool designed to help Bangladeshi citizens calculate their income tax. It provides a straightforward interface for estimating tax liabilities based on current Bangladesh tax laws.
+          <strong>Income Tax Calculator (Bangladesh) / Individual</strong> is a tool designed to help Bangladeshi citizens calculate their income tax. It provides a straightforward interface for estimating tax liabilities based on current Bangladesh tax laws.
         </p>
       </div>
     </div>
