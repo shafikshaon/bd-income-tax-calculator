@@ -108,6 +108,20 @@ const netTax = computed(() => {
   return Math.max(calculateTax.value.totalTax - totalRebate.value, 0)
 })
 
+// Calculate the TDS (Advance Income Tax - Net Tax)
+const tdsAmount = computed(() => {
+  const ait = convertToNumber(props.advanceIncomeTax)
+  const net = convertToNumber(netTax.value)
+  console.log(ait, net)
+  console.log(Math.max(ait - net, 0))
+  return Math.max(net - ait, 0)
+})
+
+// Calculate monthly TDS by dividing by 12
+const monthlyTDS = computed(() => {
+  return tdsAmount.value / 12
+})
+
 const formatNumber = (num) => num.toLocaleString()
 </script>
 
@@ -153,6 +167,10 @@ const formatNumber = (num) => num.toLocaleString()
     <h3 class="mt-4">Net Tax</h3>
     <div class="alert alert-primary">
       <strong>Net Tax: {{ formatNumber(netTax) }}</strong>
+    </div>
+
+    <div class="alert alert-info">
+      <strong>Monthly TDS: {{ formatNumber(monthlyTDS) }}</strong>
     </div>
 
     <div class="text-center mt-4">
