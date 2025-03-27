@@ -112,8 +112,6 @@ const netTax = computed(() => {
 const tdsAmount = computed(() => {
   const ait = convertToNumber(props.advanceIncomeTax)
   const net = convertToNumber(netTax.value)
-  console.log(ait, net)
-  console.log(Math.max(ait - net, 0))
   return Math.max(net - ait, 0)
 })
 
