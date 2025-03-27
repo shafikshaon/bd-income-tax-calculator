@@ -24,7 +24,7 @@ const props = defineProps({
   },
   advanceIncomeTax: {
     type: Number,
-    required: false
+    default: 0
   }
 })
 
@@ -112,7 +112,7 @@ const netTax = computed(() => {
 const tdsAmount = computed(() => {
   const ait = convertToNumber(props.advanceIncomeTax)
   const net = convertToNumber(netTax.value)
-  return Math.max(ait - net, 0)
+  return ait - net // Allow negative values
 })
 
 // Calculate monthly TDS by dividing by 12
@@ -120,61 +120,89 @@ const monthlyTDS = computed(() => {
   return tdsAmount.value / 12
 })
 
-const formatNumber = (num) => num.toLocaleString()
+// Format number with parentheses for negative values
+const formatNumber = (num) => {
+  if (num < 0) {
+    return `(${Math.abs(num).toLocaleString()})`
+  }
+  return num.toLocaleString()
+}
 </script>
 
 <template>
   <div class="card border-primary mb-3">
     <div class="card-header">Rebate Calculation</div>
     <div class="card-body">
-  <div class="tax-calculation-summary table-responsive">
-    <table class="table table-sm table-bordered">
-      <tbody>
-      <tr>
-        <td>3% of Taxable Income</td>
-        <td class="text-end">{{ formatNumber(taxableIncome * 0.03) }}</td>
-      </tr>
-      <tr>
-        <td>Investments's 15%</td>
-        <td class="text-end">{{ formatNumber(props.totalInvestment * 0.15) }}</td>
-      </tr>
-      <tr>
-        <td>10,00,000 BDT</td>
-        <td class="text-end">1,000,000</td>
-      </tr>
-      <tr class="table-info">
-        <td><strong>Lowest</strong></td>
-        <td class="text-end"><strong>{{ formatNumber(rebateCalculation) }}</strong></td>
-      </tr>
-      <tr>
-        <td colspan="2">
-          <small class="text-muted">Lowest of the above three will be considered rebate. If you must invest.</small>
-        </td>
-      </tr>
-      <tr>
-        <td>Advance Income Tax</td>
-        <td class="text-end">{{ formatNumber(advanceIncomeTax) }}</td>
-      </tr>
-      <tr class="table-success">
-        <td><strong>Total Rebate</strong></td>
-        <td class="text-end"><strong>{{ formatNumber(totalRebate) }}</strong></td>
-      </tr>
-      </tbody>
-    </table>
+      <div class="tax-calculation-summary table-responsive">
+        <table class="table table-sm table-bordered">
+          <tbody>
+          <tr>
+            <td>3% of Taxable Income</td>
+            <td class="text-end">{{ formatNumber(taxableIncome * 0.03) }}</td>
+          </tr>
+          <tr>
+            <td>Investments's 15%</td>
+            <td class="text-end">{{ formatNumber(props.totalInvestment * 0.15) }}</td>
+          </tr>
+          <tr>
+            <td>10,00,000 BDT</td>
+            <td class="text-end">1,000,000</td>
+          </tr>
+          <tr class="table-info">
+            <td><strong>Lowest</strong></td>
+            <td class="text-end"><strong>{{ formatNumber(rebateCalculation) }}</strong></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <small class="text-muted">Lowest of the above three will be considered rebate. If you must invest.</small>
+            </td>
+          </tr>
+          <tr>
+            <td>Advance Income Tax</td>
+            <td class="text-end">{{ formatNumber(props.advanceIncomeTax) }}</td>
+          </tr>
+          <tr class="table-success">
+            <td><strong>Total Rebate</strong></td>
+            <td class="text-end"><strong>{{ formatNumber(totalRebate) }}</strong></td>
+          </tr>
+          </tbody>
+        </table>
 
-    <h3 class="mt-4">Net Tax</h3>
-    <div class="alert alert-primary">
-      <strong>Net Tax: {{ formatNumber(netTax) }}</strong>
-    </div>
+        <h3 class="mt-4">Net Tax</h3>
+        <div class="alert alert-primary">
+          <strong>Net Tax: {{ formatNumber(netTax) }}</strong>
+        </div>
 
-    <div class="alert alert-info">
-      <strong>Monthly TDS: {{ formatNumber(monthlyTDS) }}</strong>
-    </div>
+        <h3 class="mt-4">TDS Calculation</h3>
+        <table class="table table-sm table-bordered">
+          <tbody>
+          <tr>
+            <td>Advance Income Tax</td>
+            <td class="text-end">{{ formatNumber(props.advanceIncomeTax) }}</td>
+          </tr>
+          <tr>
+            <td>Net Tax</td>
+            <td class="text-end">{{ formatNumber(netTax) }}</td>
+          </tr>
+          <tr class="table-info">
+            <td><strong>Total TDS (AIT - Net Tax)</strong></td>
+            <td class="text-end" :class="{ 'text-danger': tdsAmount < 0 }">
+              <strong>{{ formatNumber(tdsAmount) }}</strong>
+            </td>
+          </tr>
+          <tr class="table-warning">
+            <td><strong>Monthly TDS</strong></td>
+            <td class="text-end" :class="{ 'text-danger': monthlyTDS < 0 }">
+              <strong>{{ formatNumber(monthlyTDS) }}</strong>
+            </td>
+          </tr>
+          </tbody>
+        </table>
 
-    <div class="text-center mt-4">
-      <PdfDownloadButton />
-    </div>
-  </div>
+        <div class="text-center mt-4">
+          <PdfDownloadButton />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -193,9 +221,20 @@ td {
 .text-end {
   text-align: right;
 }
+.text-danger {
+  color: #dc3545 !important;
+}
 .table-success {
   background-color: #28a745;
   color: white;
+}
+.table-info {
+  background-color: #17a2b8;
+  color: white;
+}
+.table-warning {
+  background-color: #ffc107;
+  color: black;
 }
 .text-muted {
   font-size: 0.8em;
