@@ -96,52 +96,62 @@ const netTax = computed(() => {
   return Math.max(calculateTax.value.totalTax - totalRebate.value, 0)
 })
 
+// Calculate the TDS (Advance Income Tax - Net Tax)
+const tdsAmount = computed(() => {
+  return Math.max(props.advanceIncomeTax - props.netTax, 0)
+})
+
+// Calculate monthly TDS by dividing by 12
+const monthlyTDS = computed(() => {
+  return tdsAmount.value / 12
+})
+
 const formatNumber = (num) => num.toLocaleString()
 </script>
 
 <template>
   <div class="tax-calculation-summary">
     <h2>Tax Summary</h2>
-<div class="table-responsive">
-    <table class="table table-sm table-bordered">
-      <tbody>
-      <tr class="table-success">
-        <td><strong>Total Earning</strong></td>
-        <td class="text-end"><strong>{{ formatNumber(props.totalGrossPay) }}</strong></td>
-      </tr>
-      <tr>
-        <td>1/3 of Total Earning</td>
-        <td class="text-end">{{ formatNumber(oneThirdOfTotalEarning) }}</td>
-      </tr>
-      <tr>
-        <td>Maximum Tax free Income</td>
-        <td class="text-end">{{ formatNumber(maxTaxFreeIncome) }}</td>
-      </tr>
-      <tr>
-        <td>Tax Free Income</td>
-        <td class="text-end">{{ formatNumber(taxFreeIncome) }}</td>
-      </tr>
-      <tr>
-        <td colspan="2">
-          <small class="text-muted">It should be the lowest of 1/3 of the total earning or 4,50,000</small>
-        </td>
-      </tr>
-      <tr>
-        <td>Taxable Income</td>
-        <td class="text-end">{{ formatNumber(taxableIncome) }}</td>
-      </tr>
-      <tr>
-        <td colspan="2">
-          <small class="text-muted">Total Income - Tax Free Income</small>
-        </td>
-      </tr>
-      <tr>
-        <td>Total Investment</td>
-        <td class="text-end">{{ formatNumber(props.totalInvestment) }}</td>
-      </tr>
-      </tbody>
-    </table>
-</div>
+  <div class="table-responsive">
+      <table class="table table-sm table-bordered">
+        <tbody>
+        <tr class="table-success">
+          <td><strong>Total Earning</strong></td>
+          <td class="text-end"><strong>{{ formatNumber(props.totalGrossPay) }}</strong></td>
+        </tr>
+        <tr>
+          <td>1/3 of Total Earning</td>
+          <td class="text-end">{{ formatNumber(oneThirdOfTotalEarning) }}</td>
+        </tr>
+        <tr>
+          <td>Maximum Tax free Income</td>
+          <td class="text-end">{{ formatNumber(maxTaxFreeIncome) }}</td>
+        </tr>
+        <tr>
+          <td>Tax Free Income</td>
+          <td class="text-end">{{ formatNumber(taxFreeIncome) }}</td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <small class="text-muted">It should be the lowest of 1/3 of the total earning or 4,50,000</small>
+          </td>
+        </tr>
+        <tr>
+          <td>Taxable Income</td>
+          <td class="text-end">{{ formatNumber(taxableIncome) }}</td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <small class="text-muted">Total Income - Tax Free Income</small>
+          </td>
+        </tr>
+        <tr>
+          <td>Total Investment</td>
+          <td class="text-end">{{ formatNumber(props.totalInvestment) }}</td>
+        </tr>
+        </tbody>
+      </table>
+  </div>
 
     <h3 class="mt-4">Income Tax Slab</h3>
     <div class="table-responsive">
@@ -213,6 +223,9 @@ const formatNumber = (num) => num.toLocaleString()
     <h3 class="mt-4">Net Tax</h3>
     <div class="alert alert-primary">
       <strong>Net Tax: {{ formatNumber(netTax) }}</strong>
+    </div>
+    <div class="alert alert-info">
+      <strong>Monthly TDS: {{ formatNumber(monthlyTDS) }}</strong>
     </div>
   </div>
 </template>
