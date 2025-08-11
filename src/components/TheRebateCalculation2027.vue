@@ -114,6 +114,24 @@ const formatNumber = (num) => num.toLocaleString()
   <div class="card border-success mb-3">
     <div class="card-header bg-success text-white">Tax Calculation Summary (2026-2027)</div>
     <div class="card-body">
+      <!-- Taxable Income Summary -->
+      <div class="alert alert-info mb-3">
+        <div class="row text-center">
+          <div class="col-4">
+            <small class="text-muted">Gross Income</small><br>
+            <strong>৳{{ formatNumber(totalGrossPay) }}</strong>
+          </div>
+          <div class="col-4">
+            <small class="text-muted">Tax-Free (Max ৳5,00,000)</small><br>
+            <strong>৳{{ formatNumber(taxFreeIncome) }}</strong>
+          </div>
+          <div class="col-4">
+            <small class="text-muted">Taxable Income</small><br>
+            <strong class="text-primary">৳{{ formatNumber(taxableIncome) }}</strong>
+          </div>
+        </div>
+      </div>
+
       <div class="table-responsive">
         <table class="table table-sm table-bordered">
           <tbody>
