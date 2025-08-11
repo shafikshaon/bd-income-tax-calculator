@@ -21,43 +21,45 @@ const props = defineProps({
 })
 
 const oneThirdOfTotalEarning = computed(() => Math.floor(props.totalGrossPay / 3))
-const maxTaxFreeIncome = 500000 // Updated for 2026-2027
+const maxTaxFreeIncome = 500000
 const taxFreeIncome = computed(() => Math.min(oneThirdOfTotalEarning.value, maxTaxFreeIncome))
 const taxableIncome = computed(() => props.totalGrossPay - taxFreeIncome.value)
 
-// Updated tax slabs for 2026-2027
+// Official tax slabs for 2026-2027 assessment year from The Daily Ittefaq
+// Tax rate: 0% up to Tk 375,000, 10% for next Tk 300,000, 15% for next Tk 400,000, 
+// 20% for next Tk 500,000, 25% for next Tk 2,000,000, 30% on balance
 const taxSlabs = {
   male: [
-    {limit: 400000, rate: 0},
-    {limit: 150000, rate: 0.05},
-    {limit: 500000, rate: 0.10},
-    {limit: 600000, rate: 0.15},
-    {limit: 600000, rate: 0.20},
-    {limit: Infinity, rate: 0.25}
+    {limit: 375000, rate: 0},      // 0% up to Tk 375,000
+    {limit: 300000, rate: 0.10},   // 10% for next Tk 300,000
+    {limit: 400000, rate: 0.15},   // 15% for next Tk 400,000
+    {limit: 500000, rate: 0.20},   // 20% for next Tk 500,000
+    {limit: 2000000, rate: 0.25},  // 25% for next Tk 2,000,000
+    {limit: Infinity, rate: 0.30}  // 30% on balance
   ],
   female: [
-    {limit: 450000, rate: 0},
-    {limit: 150000, rate: 0.05},
-    {limit: 500000, rate: 0.10},
-    {limit: 600000, rate: 0.15},
-    {limit: 600000, rate: 0.20},
-    {limit: Infinity, rate: 0.25}
+    {limit: 375000, rate: 0},      // 0% up to Tk 375,000
+    {limit: 300000, rate: 0.10},   // 10% for next Tk 300,000
+    {limit: 400000, rate: 0.15},   // 15% for next Tk 400,000
+    {limit: 500000, rate: 0.20},   // 20% for next Tk 500,000
+    {limit: 2000000, rate: 0.25},  // 25% for next Tk 2,000,000
+    {limit: Infinity, rate: 0.30}  // 30% on balance
   ],
   specially_abled: [
-    {limit: 525000, rate: 0},
-    {limit: 150000, rate: 0.05},
-    {limit: 500000, rate: 0.10},
-    {limit: 600000, rate: 0.15},
-    {limit: 600000, rate: 0.20},
-    {limit: Infinity, rate: 0.25}
+    {limit: 375000, rate: 0},      // 0% up to Tk 375,000
+    {limit: 300000, rate: 0.10},   // 10% for next Tk 300,000
+    {limit: 400000, rate: 0.15},   // 15% for next Tk 400,000
+    {limit: 500000, rate: 0.20},   // 20% for next Tk 500,000
+    {limit: 2000000, rate: 0.25},  // 25% for next Tk 2,000,000
+    {limit: Infinity, rate: 0.30}  // 30% on balance
   ],
   freedom_fighter: [
-    {limit: 550000, rate: 0},
-    {limit: 150000, rate: 0.05},
-    {limit: 500000, rate: 0.10},
-    {limit: 600000, rate: 0.15},
-    {limit: 600000, rate: 0.20},
-    {limit: Infinity, rate: 0.25}
+    {limit: 375000, rate: 0},      // 0% up to Tk 375,000
+    {limit: 300000, rate: 0.10},   // 10% for next Tk 300,000
+    {limit: 400000, rate: 0.15},   // 15% for next Tk 400,000
+    {limit: 500000, rate: 0.20},   // 20% for next Tk 500,000
+    {limit: 2000000, rate: 0.25},  // 25% for next Tk 2,000,000
+    {limit: Infinity, rate: 0.30}  // 30% on balance
   ]
 }
 
@@ -78,7 +80,7 @@ const calculateTax = computed(() => {
 })
 
 const maxRebate = computed(() => {
-  // Maximum rebate is 25% of total investment or 15 lakh, whichever is lower (updated for 2026-2027)
+  // Maximum rebate is 25% of total investment or 15 lakh, whichever is lower
   return Math.min(props.totalInvestment * 0.25, 1500000)
 })
 
@@ -91,8 +93,18 @@ const netTaxLiability = computed(() => {
   return Math.max(0, calculateTax.value - rebateAmount.value)
 })
 
+const minimumTax = computed(() => {
+  // Minimum tax is BDT 5,000 for all taxpayers from 2026-27 assessment year
+  if (props.totalGrossPay > 375000) {
+    return 5000
+  }
+  return 0
+})
+
 const finalTaxLiability = computed(() => {
-  return Math.max(0, netTaxLiability.value - props.advanceIncomeTax)
+  const taxAfterAIT = Math.max(0, netTaxLiability.value - props.advanceIncomeTax)
+  // Apply minimum tax if applicable
+  return Math.max(taxAfterAIT, minimumTax.value)
 })
 
 const formatNumber = (num) => num.toLocaleString()
@@ -124,6 +136,10 @@ const formatNumber = (num) => num.toLocaleString()
           <tr>
             <td>Advance Income Tax (AIT)</td>
             <td class="text-end">{{ formatNumber(advanceIncomeTax) }}</td>
+          </tr>
+          <tr v-if="minimumTax > 0">
+            <td>Minimum Tax</td>
+            <td class="text-end">{{ formatNumber(minimumTax) }}</td>
           </tr>
           <tr class="table-success">
             <td><strong>Final Tax Liability</strong></td>

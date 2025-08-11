@@ -21,43 +21,45 @@ const props = defineProps({
 })
 
 const oneThirdOfTotalEarning = computed(() => Math.floor(props.totalGrossPay / 3))
-const maxTaxFreeIncome = 500000 // Increased limit for 2026-2027
+const maxTaxFreeIncome = 500000
 const taxFreeIncome = computed(() => Math.min(oneThirdOfTotalEarning.value, maxTaxFreeIncome))
 const taxableIncome = computed(() => props.totalGrossPay - taxFreeIncome.value)
 
-// Updated tax slabs for 2026-2027
+// Official tax slabs for 2026-2027 assessment year from The Daily Ittefaq
+// Tax rate: 0% up to Tk 375,000, 10% for next Tk 300,000, 15% for next Tk 400,000, 
+// 20% for next Tk 500,000, 25% for next Tk 2,000,000, 30% on balance
 const taxSlabs = {
   male: [
-    {limit: 400000, rate: 0},      // Increased from 350000
-    {limit: 150000, rate: 0.05},   // Increased from 100000
-    {limit: 500000, rate: 0.10},   // Increased from 400000
-    {limit: 600000, rate: 0.15},   // Increased from 500000
-    {limit: 600000, rate: 0.20},   // Increased from 500000
-    {limit: Infinity, rate: 0.25}
+    {limit: 375000, rate: 0},      // 0% up to Tk 375,000
+    {limit: 300000, rate: 0.10},   // 10% for next Tk 300,000
+    {limit: 400000, rate: 0.15},   // 15% for next Tk 400,000
+    {limit: 500000, rate: 0.20},   // 20% for next Tk 500,000
+    {limit: 2000000, rate: 0.25},  // 25% for next Tk 2,000,000
+    {limit: Infinity, rate: 0.30}  // 30% on balance
   ],
   female: [
-    {limit: 450000, rate: 0},      // Increased from 400000
-    {limit: 150000, rate: 0.05},   // Increased from 100000
-    {limit: 500000, rate: 0.10},   // Increased from 400000
-    {limit: 600000, rate: 0.15},   // Increased from 500000
-    {limit: 600000, rate: 0.20},   // Increased from 500000
-    {limit: Infinity, rate: 0.25}
+    {limit: 375000, rate: 0},      // 0% up to Tk 375,000
+    {limit: 300000, rate: 0.10},   // 10% for next Tk 300,000
+    {limit: 400000, rate: 0.15},   // 15% for next Tk 400,000
+    {limit: 500000, rate: 0.20},   // 20% for next Tk 500,000
+    {limit: 2000000, rate: 0.25},  // 25% for next Tk 2,000,000
+    {limit: Infinity, rate: 0.30}  // 30% on balance
   ],
   specially_abled: [
-    {limit: 525000, rate: 0},      // Increased from 475000
-    {limit: 150000, rate: 0.05},   // Increased from 100000
-    {limit: 500000, rate: 0.10},   // Increased from 400000
-    {limit: 600000, rate: 0.15},   // Increased from 500000
-    {limit: 600000, rate: 0.20},   // Increased from 500000
-    {limit: Infinity, rate: 0.25}
+    {limit: 375000, rate: 0},      // 0% up to Tk 375,000
+    {limit: 300000, rate: 0.10},   // 10% for next Tk 300,000
+    {limit: 400000, rate: 0.15},   // 15% for next Tk 400,000
+    {limit: 500000, rate: 0.20},   // 20% for next Tk 500,000
+    {limit: 2000000, rate: 0.25},  // 25% for next Tk 2,000,000
+    {limit: Infinity, rate: 0.30}  // 30% on balance
   ],
   freedom_fighter: [
-    {limit: 550000, rate: 0},      // Increased from 500000
-    {limit: 150000, rate: 0.05},   // Increased from 100000
-    {limit: 500000, rate: 0.10},   // Increased from 400000
-    {limit: 600000, rate: 0.15},   // Increased from 500000
-    {limit: 600000, rate: 0.20},   // Increased from 500000
-    {limit: Infinity, rate: 0.25}
+    {limit: 375000, rate: 0},      // 0% up to Tk 375,000
+    {limit: 300000, rate: 0.10},   // 10% for next Tk 300,000
+    {limit: 400000, rate: 0.15},   // 15% for next Tk 400,000
+    {limit: 500000, rate: 0.20},   // 20% for next Tk 500,000
+    {limit: 2000000, rate: 0.25},  // 25% for next Tk 2,000,000
+    {limit: Infinity, rate: 0.30}  // 30% on balance
   ]
 }
 

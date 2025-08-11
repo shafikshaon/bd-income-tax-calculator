@@ -5,9 +5,8 @@ import TheInvestmentTable from "@/components/TheInvestmentTable.vue";
 import TheGeneralInfo from "@/components/TheGeneralInfo.vue";
 import TheEarningSummary from "@/components/TheEarningSummary.vue";
 import TheIncomeTaxSlab from "@/components/TheIncomeTaxSlab.vue";
-import TheIncomeTaxSlab2027 from "@/components/TheIncomeTaxSlab2027.vue";
 import TheRebateCalculation from "@/components/TheRebateCalculation.vue";
-import TheRebateCalculation2027 from "@/components/TheRebateCalculation2027.vue";
+import TheTaxCalculator2027 from "@/components/TheTaxCalculator2027.vue";
 
 const activeTab = ref('2025-2026')
 const totalGrossPay = ref(0)
@@ -21,11 +20,9 @@ const updateTotalGrossPay = (newValue) => {
 const updateGender = (newValue) => {
   gender.value = newValue
 }
-
 const updateTotalInvestment = (newValue) => {
   totalInvestment.value = newValue
 }
-
 const updateAdvanceIncomeTax = (newValue) => {
   advanceIncomeTax.value = newValue
 }
@@ -66,16 +63,15 @@ const setActiveTab = (tab) => {
         </div>
       </div>
 
-      <div class="row mb-3">
-        <div class="col-12">
-          <the-general-info @update:gender="updateGender"/>
-        </div>
-      </div>
-
       <!-- Tab Content -->
       <div class="tab-content" id="taxYearTabContent">
         <!-- 2025-2026 Tab -->
         <div v-show="activeTab === '2025-2026'" class="tab-pane fade show active">
+          <div class="row mb-3">
+            <div class="col-12">
+              <the-general-info @update:gender="updateGender"/>
+            </div>
+          </div>
           <div class="row mb-3">
             <div class="col-lg-4 col-md-6 mb-3">
               <the-income-table
@@ -109,37 +105,8 @@ const setActiveTab = (tab) => {
         </div>
 
         <!-- 2026-2027 Tab -->
-        <div v-show="activeTab === '2026-2027'" class="tab-pane fade">
-          <div class="row mb-3">
-            <div class="col-lg-4 col-md-6 mb-3">
-              <the-income-table
-                @update:totalGrossPay="updateTotalGrossPay"
-                @update:advanceIncomeTax="updateAdvanceIncomeTax"
-              />
-            </div>
-            <div class="col-lg-4 col-md-6 mb-3">
-              <the-investment-table
-                @update:totalInvestment="updateTotalInvestment"
-              />
-              <the-earning-summary
-                :totalGrossPay="totalGrossPay"
-                :totalInvestment="totalInvestment"
-              />
-            </div>
-            <div class="col-lg-4 col-md-12 mb-3">
-              <the-income-tax-slab2027
-                :gender="gender"
-                :totalGrossPay="totalGrossPay"
-                :totalInvestment="totalInvestment"
-              />
-              <the-rebate-calculation2027
-                :advanceIncomeTax="advanceIncomeTax"
-                :gender="gender"
-                :totalGrossPay="totalGrossPay"
-                :totalInvestment="totalInvestment"
-              />
-            </div>
-          </div>
+        <div v-show="activeTab === '2026-2027'" class="tab-pane fade show active">
+          <the-tax-calculator2027 />
         </div>
       </div>
     </div>
