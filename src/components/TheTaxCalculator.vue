@@ -6,6 +6,7 @@ import TheGeneralInfo from "@/components/TheGeneralInfo.vue";
 import TheEarningSummary from "@/components/TheEarningSummary.vue";
 import TheIncomeTaxSlab from "@/components/TheIncomeTaxSlab.vue";
 import TheRebateCalculation from "@/components/TheRebateCalculation.vue";
+import TheRebateInformation from "@/components/TheRebateInformation.vue";
 import TheTaxCalculator2027 from "@/components/TheTaxCalculator2027.vue";
 
 const activeTab = ref('2025-2026')
@@ -99,6 +100,14 @@ const setActiveTab = (tab) => {
                 :gender="gender"
                 :totalGrossPay="totalGrossPay"
                 :totalInvestment="totalInvestment"
+              />
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-12">
+              <the-rebate-information
+                :totalGrossPay="totalGrossPay"
+                taxYear="2025-2026"
               />
             </div>
           </div>

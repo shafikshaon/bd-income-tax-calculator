@@ -6,6 +6,7 @@ import TheGeneralInfo from "@/components/TheGeneralInfo.vue";
 import TheEarningSummary from "@/components/TheEarningSummary.vue";
 import TheIncomeTaxSlab2027 from "@/components/TheIncomeTaxSlab2027.vue";
 import TheRebateCalculation2027 from "@/components/TheRebateCalculation2027.vue";
+import TheRebateInformation from "@/components/TheRebateInformation.vue";
 
 const totalGrossPay = ref(0)
 const totalInvestment = ref(0)
@@ -60,6 +61,14 @@ const updateAdvanceIncomeTax = (newValue) => {
           :gender="gender"
           :totalGrossPay="totalGrossPay"
           :totalInvestment="totalInvestment"
+        />
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-12">
+        <the-rebate-information
+          :totalGrossPay="totalGrossPay"
+          taxYear="2026-2027"
         />
       </div>
     </div>
