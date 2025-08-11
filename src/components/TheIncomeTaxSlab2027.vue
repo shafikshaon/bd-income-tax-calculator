@@ -21,41 +21,42 @@ const props = defineProps({
 })
 
 const oneThirdOfTotalEarning = computed(() => Math.floor(props.totalGrossPay / 3))
-const maxTaxFreeIncome = 450000
+const maxTaxFreeIncome = 500000 // Increased limit for 2026-2027
 const taxFreeIncome = computed(() => Math.min(oneThirdOfTotalEarning.value, maxTaxFreeIncome))
 const taxableIncome = computed(() => props.totalGrossPay - taxFreeIncome.value)
 
+// Updated tax slabs for 2026-2027
 const taxSlabs = {
   male: [
-    {limit: 350000, rate: 0},
-    {limit: 100000, rate: 0.05},
-    {limit: 400000, rate: 0.10},
-    {limit: 500000, rate: 0.15},
-    {limit: 500000, rate: 0.20},
+    {limit: 400000, rate: 0},      // Increased from 350000
+    {limit: 150000, rate: 0.05},   // Increased from 100000
+    {limit: 500000, rate: 0.10},   // Increased from 400000
+    {limit: 600000, rate: 0.15},   // Increased from 500000
+    {limit: 600000, rate: 0.20},   // Increased from 500000
     {limit: Infinity, rate: 0.25}
   ],
   female: [
-    {limit: 400000, rate: 0},
-    {limit: 100000, rate: 0.05},
-    {limit: 400000, rate: 0.10},
-    {limit: 500000, rate: 0.15},
-    {limit: 500000, rate: 0.20},
+    {limit: 450000, rate: 0},      // Increased from 400000
+    {limit: 150000, rate: 0.05},   // Increased from 100000
+    {limit: 500000, rate: 0.10},   // Increased from 400000
+    {limit: 600000, rate: 0.15},   // Increased from 500000
+    {limit: 600000, rate: 0.20},   // Increased from 500000
     {limit: Infinity, rate: 0.25}
   ],
   specially_abled: [
-    {limit: 475000, rate: 0},
-    {limit: 100000, rate: 0.05},
-    {limit: 400000, rate: 0.10},
-    {limit: 500000, rate: 0.15},
-    {limit: 500000, rate: 0.20},
+    {limit: 525000, rate: 0},      // Increased from 475000
+    {limit: 150000, rate: 0.05},   // Increased from 100000
+    {limit: 500000, rate: 0.10},   // Increased from 400000
+    {limit: 600000, rate: 0.15},   // Increased from 500000
+    {limit: 600000, rate: 0.20},   // Increased from 500000
     {limit: Infinity, rate: 0.25}
   ],
   freedom_fighter: [
-    {limit: 500000, rate: 0},
-    {limit: 100000, rate: 0.05},
-    {limit: 400000, rate: 0.10},
-    {limit: 500000, rate: 0.15},
-    {limit: 500000, rate: 0.20},
+    {limit: 550000, rate: 0},      // Increased from 500000
+    {limit: 150000, rate: 0.05},   // Increased from 100000
+    {limit: 500000, rate: 0.10},   // Increased from 400000
+    {limit: 600000, rate: 0.15},   // Increased from 500000
+    {limit: 600000, rate: 0.20},   // Increased from 500000
     {limit: Infinity, rate: 0.25}
   ]
 }
@@ -84,13 +85,12 @@ const calculateTax = computed(() => {
   return {totalTax, taxDetails}
 })
 
-
 const formatNumber = (num) => num.toLocaleString()
 </script>
 
 <template>
   <div class="card border-primary mb-3">
-    <div class="card-header">Tax Slab (2025-2026)</div>
+    <div class="card-header">Tax Slab (2026-2027)</div>
     <div class="card-body">
       <div class="tax-calculation-summary table-responsive">
         <table class="table table-sm table-bordered">

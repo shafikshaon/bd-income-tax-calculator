@@ -24,7 +24,7 @@ const props = defineProps({
   },
   advanceIncomeTax: {
     type: Number,
-    default: 0
+    required: true
   }
 })
 
@@ -131,7 +131,7 @@ const formatNumber = (num) => {
 
 <template>
   <div class="card border-primary mb-3">
-    <div class="card-header">Rebate Calculation</div>
+    <div class="card-header">Rebate Calculation (2025-2026)</div>
     <div class="card-body">
       <div class="tax-calculation-summary table-responsive">
         <table class="table table-sm table-bordered">
