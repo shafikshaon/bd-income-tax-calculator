@@ -102,8 +102,12 @@ const minimumTax = computed(() => {
 })
 
 const finalTaxLiability = computed(() => {
-  const taxAfterAIT = Math.max(0, netTaxLiability.value - props.advanceIncomeTax)
-  // Apply minimum tax if applicable
+  const taxAfterAIT = netTaxLiability.value - props.advanceIncomeTax
+  // For high earners, minimum tax doesn't apply if regular tax is higher
+  if (netTaxLiability.value > minimumTax.value) {
+    return Math.max(0, taxAfterAIT)
+  }
+  // Apply minimum tax only for low tax situations
   return Math.max(taxAfterAIT, minimumTax.value)
 })
 
@@ -177,6 +181,27 @@ const formatNumber = (num) => num.toLocaleString()
         <div v-else class="alert alert-success">
           <strong>No Tax Liability!</strong> Your advance tax covers your full liability.
         </div>
+      </div>
+
+      <!-- TDS Calculation -->
+      <h6 class="mt-4 mb-3"><strong>TDS (Tax Deducted at Source) Calculation:</strong></h6>
+      <div class="table-responsive">
+        <table class="table table-sm table-bordered">
+          <tbody>
+          <tr>
+            <td>Annual Tax Liability</td>
+            <td class="text-end">{{ formatNumber(finalTaxLiability) }}</td>
+          </tr>
+          <tr>
+            <td>Monthly TDS (Annual ÷ 12)</td>
+            <td class="text-end">{{ formatNumber(Math.round(finalTaxLiability / 12)) }}</td>
+          </tr>
+          <tr class="table-info">
+            <td><strong>Employer Should Deduct Monthly</strong></td>
+            <td class="text-end"><strong>৳{{ formatNumber(Math.round(finalTaxLiability / 12)) }}</strong></td>
+          </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

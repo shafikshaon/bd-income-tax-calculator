@@ -33,38 +33,39 @@ const maxTaxFreeIncome = 450000
 const taxFreeIncome = computed(() => Math.min(oneThirdOfTotalEarning.value, maxTaxFreeIncome))
 const taxableIncome = computed(() => props.totalGrossPay - taxFreeIncome.value)
 
+// Correct tax slabs for 2025-2026 assessment year (matching TheIncomeTaxSlab.vue)
 const taxSlabs = {
   male: [
-    {limit: 350000, rate: 0},
-    {limit: 100000, rate: 0.05},
-    {limit: 400000, rate: 0.10},
-    {limit: 500000, rate: 0.15},
-    {limit: 500000, rate: 0.20},
-    {limit: Infinity, rate: 0.25}
+    {limit: 350000, rate: 0},      // Tax-free income for males
+    {limit: 100000, rate: 0.05},   // 5% on next 100,000
+    {limit: 400000, rate: 0.10},   // 10% on next 400,000
+    {limit: 500000, rate: 0.15},   // 15% on next 500,000
+    {limit: 500000, rate: 0.20},   // 20% on next 500,000
+    {limit: Infinity, rate: 0.25}  // 25% on remaining income
   ],
   female: [
-    {limit: 400000, rate: 0},
-    {limit: 100000, rate: 0.05},
-    {limit: 400000, rate: 0.10},
-    {limit: 500000, rate: 0.15},
-    {limit: 500000, rate: 0.20},
-    {limit: Infinity, rate: 0.25}
+    {limit: 400000, rate: 0},      // Tax-free income for females
+    {limit: 100000, rate: 0.05},   // 5% on next 100,000
+    {limit: 400000, rate: 0.10},   // 10% on next 400,000
+    {limit: 500000, rate: 0.15},   // 15% on next 500,000
+    {limit: 500000, rate: 0.20},   // 20% on next 500,000
+    {limit: Infinity, rate: 0.25}  // 25% on remaining income
   ],
   specially_abled: [
-    {limit: 475000, rate: 0},
-    {limit: 100000, rate: 0.05},
-    {limit: 400000, rate: 0.10},
-    {limit: 500000, rate: 0.15},
-    {limit: 500000, rate: 0.20},
-    {limit: Infinity, rate: 0.25}
+    {limit: 475000, rate: 0},      // Tax-free income for specially abled
+    {limit: 100000, rate: 0.05},   // 5% on next 100,000
+    {limit: 400000, rate: 0.10},   // 10% on next 400,000
+    {limit: 500000, rate: 0.15},   // 15% on next 500,000
+    {limit: 500000, rate: 0.20},   // 20% on next 500,000
+    {limit: Infinity, rate: 0.25}  // 25% on remaining income
   ],
   freedom_fighter: [
-    {limit: 500000, rate: 0},
-    {limit: 100000, rate: 0.05},
-    {limit: 400000, rate: 0.10},
-    {limit: 500000, rate: 0.15},
-    {limit: 500000, rate: 0.20},
-    {limit: Infinity, rate: 0.25}
+    {limit: 500000, rate: 0},      // Tax-free income for freedom fighters
+    {limit: 100000, rate: 0.05},   // 5% on next 100,000
+    {limit: 400000, rate: 0.10},   // 10% on next 400,000
+    {limit: 500000, rate: 0.15},   // 15% on next 500,000
+    {limit: 500000, rate: 0.20},   // 20% on next 500,000
+    {limit: Infinity, rate: 0.25}  // 25% on remaining income
   ]
 }
 
@@ -92,33 +93,25 @@ const calculateTax = computed(() => {
   return {totalTax, taxDetails}
 })
 
-const rebateCalculation = computed(() => {
-  const threePercentOfTaxableIncome = taxableIncome.value * 0.03
-  const fifteenPercentOfInvestment = props.totalInvestment * 0.15
-  const tenLakhBDT = 1000000
-
-  return Math.min(threePercentOfTaxableIncome, fifteenPercentOfInvestment, tenLakhBDT)
+const maxRebate = computed(() => {
+  // 25% of total investment or 15 lakh, whichever is lower for 2025-2026
+  return Math.min(props.totalInvestment * 0.25, 1500000)
 })
 
-const totalRebate = computed(() => {
-  return convertToNumber(rebateCalculation.value) + convertToNumber(props.advanceIncomeTax)
+const rebateAmount = computed(() => {
+  // Rebate cannot exceed the calculated tax amount
+  return Math.min(maxRebate.value, calculateTax.value.totalTax)
 })
 
-const netTax = computed(() => {
-  return Math.max(calculateTax.value.totalTax - totalRebate.value, 0)
+const netTaxLiability = computed(() => {
+  return Math.max(0, calculateTax.value.totalTax - rebateAmount.value)
 })
 
-// Calculate the TDS (Advance Income Tax - Net Tax)
-const tdsAmount = computed(() => {
-  const ait = convertToNumber(props.advanceIncomeTax)
-  const net = convertToNumber(netTax.value)
-  return net - ait // Allow negative values
+const finalTaxLiability = computed(() => {
+  return Math.max(0, netTaxLiability.value - props.advanceIncomeTax)
 })
 
-// Calculate monthly TDS by dividing by 12
-const monthlyTDS = computed(() => {
-  return tdsAmount.value / 12
-})
+// Remove old TDS calculation - now handled in final tax liability
 
 // Format number with parentheses for negative values
 const formatNumber = (num) => {
@@ -137,67 +130,68 @@ const formatNumber = (num) => {
         <table class="table table-sm table-bordered">
           <tbody>
           <tr>
-            <td>3% of Taxable Income</td>
-            <td class="text-end">{{ formatNumber(taxableIncome * 0.03) }}</td>
+            <td><strong>Gross Tax Liability</strong></td>
+            <td class="text-end"><strong>{{ formatNumber(calculateTax.totalTax) }}</strong></td>
           </tr>
           <tr>
-            <td>Investments's 15%</td>
-            <td class="text-end">{{ formatNumber(props.totalInvestment * 0.15) }}</td>
+            <td>Maximum Rebate (25% of investment or ৳15,00,000)</td>
+            <td class="text-end">{{ formatNumber(maxRebate) }}</td>
           </tr>
           <tr>
-            <td>10,00,000 BDT</td>
-            <td class="text-end">1,000,000</td>
+            <td>Actual Rebate</td>
+            <td class="text-end">{{ formatNumber(rebateAmount) }}</td>
           </tr>
-          <tr class="table-info">
-            <td><strong>Lowest</strong></td>
-            <td class="text-end"><strong>{{ formatNumber(rebateCalculation) }}</strong></td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              <small class="text-muted">Lowest of the above three will be considered rebate. If you must invest.</small>
-            </td>
+          <tr class="table-warning">
+            <td><strong>Net Tax Liability</strong></td>
+            <td class="text-end"><strong>{{ formatNumber(netTaxLiability) }}</strong></td>
           </tr>
           <tr>
-            <td>Advance Income Tax</td>
+            <td>Advance Income Tax (AIT)</td>
             <td class="text-end">{{ formatNumber(props.advanceIncomeTax) }}</td>
           </tr>
           <tr class="table-success">
-            <td><strong>Total Rebate</strong></td>
-            <td class="text-end"><strong>{{ formatNumber(totalRebate) }}</strong></td>
+            <td><strong>Final Tax Liability</strong></td>
+            <td class="text-end"><strong>{{ formatNumber(finalTaxLiability) }}</strong></td>
           </tr>
           </tbody>
         </table>
 
-        <h3 class="mt-4">Net Tax</h3>
-        <div class="alert alert-primary">
-          <strong>Net Tax: {{ formatNumber(netTax) }}</strong>
+        <div class="mt-3">
+          <div v-if="finalTaxLiability > 0" class="alert alert-warning">
+            <strong>Amount to Pay:</strong> ৳{{ formatNumber(finalTaxLiability) }}
+          </div>
+          <div v-else-if="finalTaxLiability < 0" class="alert alert-info">
+            <strong>Refund Expected:</strong> ৳{{ formatNumber(Math.abs(finalTaxLiability)) }}
+          </div>
+          <div v-else class="alert alert-success">
+            <strong>No Tax Liability!</strong> Your advance tax covers your full liability.
+          </div>
         </div>
 
-        <h3 class="mt-4">TDS Calculation</h3>
-        <table class="table table-sm table-bordered">
-          <tbody>
-          <tr>
-            <td>Advance Income Tax</td>
-            <td class="text-end">{{ formatNumber(props.advanceIncomeTax) }}</td>
-          </tr>
-          <tr>
-            <td>Net Tax</td>
-            <td class="text-end">{{ formatNumber(netTax) }}</td>
-          </tr>
-          <tr class="table-info">
-            <td><strong>Total TDS (AIT - Net Tax)</strong></td>
-            <td :class="{ 'text-danger': tdsAmount < 0 }" class="text-end">
-              <strong>{{ formatNumber(tdsAmount) }}</strong>
-            </td>
-          </tr>
-          <tr class="table-warning">
-            <td><strong>Monthly TDS</strong></td>
-            <td :class="{ 'text-danger': monthlyTDS < 0 }" class="text-end">
-              <strong>{{ formatNumber(monthlyTDS) }}</strong>
-            </td>
-          </tr>
-          </tbody>
-        </table>
+        <!-- TDS Calculation -->
+        <h6 class="mt-4 mb-3"><strong>TDS (Tax Deducted at Source) Calculation:</strong></h6>
+        <div class="table-responsive">
+          <table class="table table-sm table-bordered">
+            <tbody>
+            <tr>
+              <td>Annual Tax Liability</td>
+              <td class="text-end">{{ formatNumber(finalTaxLiability) }}</td>
+            </tr>
+            <tr>
+              <td>Monthly TDS (Annual ÷ 12)</td>
+              <td class="text-end">{{ formatNumber(Math.round(finalTaxLiability / 12)) }}</td>
+            </tr>
+            <tr class="table-info">
+              <td><strong>Employer Should Deduct Monthly</strong></td>
+              <td class="text-end"><strong>৳{{ formatNumber(Math.round(finalTaxLiability / 12)) }}</strong></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="text-center mt-4">
+          <PdfDownloadButton/>
+        </div>
 
         <div class="text-center mt-4">
           <PdfDownloadButton/>
