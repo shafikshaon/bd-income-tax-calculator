@@ -6,6 +6,11 @@ const props = defineProps({
     type: Number,
     required: true
   },
+  totalInvestment: {
+    type: Number,
+    required: false,
+    default: 0
+  },
   taxYear: {
     type: String,
     required: true,
@@ -13,35 +18,32 @@ const props = defineProps({
   }
 })
 
-const maxRebatePercentage = computed(() => {
-  // For both tax years, maximum rebate is 25% of total income
-  return 0.25
+const oneThirdOfTotalEarning = computed(() => Math.floor(props.totalGrossPay / 3))
+const maxTaxFreeIncome = computed(() => {
+  if (props.taxYear === '2026-2027') {
+    return Math.min(oneThirdOfTotalEarning.value, 500000) // ৳5,00,000 for 2026-27
+  }
+  return Math.min(oneThirdOfTotalEarning.value, 450000) // ৳4,50,000 for 2025-26
 })
+
+const taxableIncome = computed(() => Math.max(0, props.totalGrossPay - maxTaxFreeIncome.value))
 
 const maxRebateAmount = computed(() => {
-  // Maximum rebate ceiling for both tax years
-  if (props.taxYear === '2026-2027') {
-    return 1500000 // ৳15,00,000 for 2026-27
-  }
-  return 1500000 // ৳15,00,000 for 2025-26
+  // Maximum rebate ceiling for both tax years is ৳10,00,000
+  return 1000000
 })
 
-const maxRebateFromIncome = computed(() => {
-  return Math.floor(props.totalGrossPay * maxRebatePercentage.value)
-})
-
-const maxInvestmentForRebate = computed(() => {
-  const incomeBasedLimit = props.totalGrossPay * maxRebatePercentage.value
-  return Math.min(incomeBasedLimit, maxRebateAmount.value)
+const threePercentOfTaxable = computed(() => {
+  return Math.round(taxableIncome.value * 0.03)
 })
 
 const maxRebateFromInvestment = computed(() => {
   const investment = props.totalInvestment || 0
-  return investment * maxRebatePercentage.value
+  return Math.round(investment * 0.15) // 15% of investment
 })
 
 const actualMaxRebate = computed(() => {
-  return Math.min(maxRebateFromInvestment.value, maxRebateAmount.value)
+  return Math.min(threePercentOfTaxable.value, maxRebateFromInvestment.value, maxRebateAmount.value)
 })
 
 const investmentOptions = [
@@ -98,20 +100,24 @@ const formatNumber = (num) => {
       <div class="alert alert-primary">
         <h6 class="mb-2"><strong>Your Maximum Rebate Limits:</strong></h6>
         <div class="row">
-          <div class="col-md-6">
-            <small class="text-muted">25% of Your Investment</small><br>
+          <div class="col-md-4">
+            <small class="text-muted">3% of Taxable Income</small><br>
+            <strong>৳{{ formatNumber(threePercentOfTaxable) }}</strong>
+          </div>
+          <div class="col-md-4">
+            <small class="text-muted">15% of Investment</small><br>
             <strong>৳{{ formatNumber(maxRebateFromInvestment) }}</strong>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-4">
             <small class="text-muted">Government Ceiling Limit</small><br>
             <strong>৳{{ formatNumber(maxRebateAmount) }}</strong>
           </div>
         </div>
         <hr class="my-2">
         <div class="text-center">
-          <small class="text-muted">Your Maximum Rebate from Current Investment</small><br>
+          <small class="text-muted">Your Maximum Rebate (Lowest of Above Three)</small><br>
           <h5 class="text-primary mb-0"><strong>৳{{ formatNumber(actualMaxRebate) }}</strong></h5>
-          <small class="text-muted">{{ actualMaxRebate >= maxRebateAmount ? 'Limited by government ceiling' : 'Based on 25% of investment' }}</small>
+          <small class="text-muted">Lowest of the above three will be considered rebate, if you must invest</small>
         </div>
       </div>
 
@@ -163,12 +169,13 @@ const formatNumber = (num) => {
       <div class="alert alert-warning mt-3">
         <h6 class="mb-2"><strong>Important Notes:</strong></h6>
         <ul class="mb-0 small">
-          <li>Maximum rebate is <strong>25% of total income</strong> or <strong>৳{{ formatNumber(maxRebateAmount) }}</strong>, whichever is lower</li>
+          <li>Rebate is calculated as the <strong>lowest of: 3% of taxable income, 15% of investment, or ৳{{ formatNumber(maxRebateAmount) }}</strong></li>
           <li>Rebate amount cannot exceed your actual tax liability</li>
           <li>Investment must be made during the income year (July-June) for rebate eligibility</li>
           <li>Proper documentation and receipts are required for claiming rebate</li>
           <li>Some investments may have minimum tenure requirements (e.g., DPS: 5 years)</li>
           <li>Life insurance premium rebate subject to specific conditions and limits</li>
+          <li>You must actually invest to claim the rebate - it's not automatic</li>
           <li>Consult a qualified tax advisor for investment strategy and compliance</li>
         </ul>
       </div>

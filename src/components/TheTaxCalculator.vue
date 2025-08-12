@@ -107,6 +107,7 @@ const setActiveTab = (tab) => {
             <div class="col-12">
               <the-rebate-information
                 :totalGrossPay="totalGrossPay"
+                :totalInvestment="totalInvestment"
                 taxYear="2025-2026"
               />
             </div>

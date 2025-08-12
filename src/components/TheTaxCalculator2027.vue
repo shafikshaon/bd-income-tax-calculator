@@ -106,6 +106,7 @@ const formatNumber = (num) => num.toLocaleString()
       <div class="col-12">
         <the-rebate-information
           :totalGrossPay="totalGrossPay"
+          :totalInvestment="totalInvestment"
           taxYear="2026-2027"
         />
       </div>
