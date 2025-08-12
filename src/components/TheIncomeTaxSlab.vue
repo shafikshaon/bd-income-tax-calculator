@@ -23,7 +23,7 @@ const props = defineProps({
 const oneThirdOfTotalEarning = computed(() => Math.floor(props.totalGrossPay / 3))
 const maxTaxFreeIncome = 450000
 const taxFreeIncome = computed(() => Math.min(oneThirdOfTotalEarning.value, maxTaxFreeIncome))
-const taxableIncome = computed(() => props.totalGrossPay - taxFreeIncome.value)
+const taxableIncome = computed(() => Math.max(0, props.totalGrossPay - taxFreeIncome.value))
 
 // Official tax slabs for 2025-2026 assessment year based on PWC Bangladesh
 const taxSlabs = {

@@ -31,7 +31,7 @@ const props = defineProps({
 const oneThirdOfTotalEarning = computed(() => Math.floor(props.totalGrossPay / 3))
 const maxTaxFreeIncome = 450000
 const taxFreeIncome = computed(() => Math.min(oneThirdOfTotalEarning.value, maxTaxFreeIncome))
-const taxableIncome = computed(() => props.totalGrossPay - taxFreeIncome.value)
+const taxableIncome = computed(() => Math.max(0, props.totalGrossPay - taxFreeIncome.value))
 
 // Official tax slabs for 2025-2026 assessment year (matching TheIncomeTaxSlab.vue)
 const taxSlabs = {
@@ -93,15 +93,22 @@ const calculateTax = computed(() => {
   return {totalTax, taxDetails}
 })
 
-const maxRebate = computed(() => {
-  // Maximum possible rebate: 25% of total investment or 15 lakh, whichever is lower
-  return Math.min(props.totalInvestment * 0.25, 1500000)
+const rebateAmount = computed(() => {
+  // Bangladesh tax law: Rebate is the lowest of:
+  // 1. 3% of taxable income
+  // 2. 15% of actual investment 
+  // 3. ৳10,00,000 BDT
+  const threePercentOfTaxable = Math.round(taxableIncome.value * 0.03)
+  const fifteenPercentOfInvestment = Math.round(props.totalInvestment * 0.15)
+  const maxLimit = 1000000
+
+  const calculatedRebate = Math.min(threePercentOfTaxable, fifteenPercentOfInvestment, maxLimit)
+
+  // Rebate cannot exceed actual tax liability
+  return Math.min(calculatedRebate, calculateTax.value.totalTax)
 })
 
-const rebateAmount = computed(() => {
-  // Actual rebate: cannot exceed the calculated tax amount
-  return Math.min(maxRebate.value, calculateTax.value.totalTax)
-})
+// Remove maxRebate computed property as it's no longer needed
 
 const netTaxLiability = computed(() => {
   return Math.max(0, calculateTax.value.totalTax - rebateAmount.value)
@@ -134,12 +141,33 @@ const formatNumber = (num) => {
             <td class="text-end"><strong>{{ formatNumber(calculateTax.totalTax) }}</strong></td>
           </tr>
           <tr>
-            <td>Maximum Rebate (25% of investment or ৳15,00,000)</td>
-            <td class="text-end">{{ formatNumber(maxRebate) }}</td>
+            <td>3% of Taxable Income</td>
+            <td class="text-end">{{ formatNumber(Math.round(taxableIncome * 0.03)) }}</td>
           </tr>
           <tr>
-            <td>Actual Rebate</td>
-            <td class="text-end">{{ formatNumber(rebateAmount) }}</td>
+            <td>Investment's 15%</td>
+            <td class="text-end">{{ formatNumber(Math.round(props.totalInvestment * 0.15)) }}</td>
+          </tr>
+          <tr>
+            <td>10,00,000 BDT</td>
+            <td class="text-end">{{ formatNumber(1000000) }}</td>
+          </tr>
+          <tr>
+            <td><strong>Lowest</strong></td>
+            <td class="text-end"><strong>{{ formatNumber(Math.min(Math.round(taxableIncome * 0.03), Math.round(props.totalInvestment * 0.15), 1000000)) }}</strong></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <small class="text-muted">Lowest of the above three will be considered rebate, if you must invest</small>
+            </td>
+          </tr>
+          <tr>
+            <td>Advance Income Tax</td>
+            <td class="text-end">{{ formatNumber(1) }}</td>
+          </tr>
+          <tr class="table-success">
+            <td><strong>Total Rebate</strong></td>
+            <td class="text-end"><strong>{{ formatNumber(Math.min(Math.round(taxableIncome * 0.03), Math.round(props.totalInvestment * 0.15), 1000000)) }}</strong></td>
           </tr>
           <tr class="table-warning">
             <td><strong>Net Tax Liability</strong></td>
