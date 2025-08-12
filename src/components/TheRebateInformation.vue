@@ -35,6 +35,15 @@ const maxInvestmentForRebate = computed(() => {
   return Math.min(incomeBasedLimit, maxRebateAmount.value)
 })
 
+const maxRebateFromInvestment = computed(() => {
+  const investment = props.totalInvestment || 0
+  return investment * maxRebatePercentage.value
+})
+
+const actualMaxRebate = computed(() => {
+  return Math.min(maxRebateFromInvestment.value, maxRebateAmount.value)
+})
+
 const investmentOptions = [
   {
     category: "Life Insurance Premium",
@@ -73,7 +82,10 @@ const investmentOptions = [
   }
 ]
 
-const formatNumber = (num) => num.toLocaleString()
+const formatNumber = (num) => {
+  const value = num || 0
+  return value.toLocaleString()
+}
 </script>
 
 <template>
@@ -87,8 +99,8 @@ const formatNumber = (num) => num.toLocaleString()
         <h6 class="mb-2"><strong>Your Maximum Rebate Limits:</strong></h6>
         <div class="row">
           <div class="col-md-6">
-            <small class="text-muted">25% of Your Income</small><br>
-            <strong>৳{{ formatNumber(maxRebateFromIncome) }}</strong>
+            <small class="text-muted">25% of Your Investment</small><br>
+            <strong>৳{{ formatNumber(maxRebateFromInvestment) }}</strong>
           </div>
           <div class="col-md-6">
             <small class="text-muted">Government Ceiling Limit</small><br>
@@ -97,9 +109,9 @@ const formatNumber = (num) => num.toLocaleString()
         </div>
         <hr class="my-2">
         <div class="text-center">
-          <small class="text-muted">Your Maximum Investment for Rebate</small><br>
-          <h5 class="text-primary mb-0"><strong>৳{{ formatNumber(maxInvestmentForRebate) }}</strong></h5>
-          <small class="text-muted">{{ maxRebateFromIncome <= maxRebateAmount ? 'Limited by your income' : 'Limited by government ceiling' }}</small>
+          <small class="text-muted">Your Maximum Rebate from Current Investment</small><br>
+          <h5 class="text-primary mb-0"><strong>৳{{ formatNumber(actualMaxRebate) }}</strong></h5>
+          <small class="text-muted">{{ actualMaxRebate >= maxRebateAmount ? 'Limited by government ceiling' : 'Based on 25% of investment' }}</small>
         </div>
       </div>
 

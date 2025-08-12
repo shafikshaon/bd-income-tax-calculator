@@ -25,39 +25,39 @@ const maxTaxFreeIncome = 450000
 const taxFreeIncome = computed(() => Math.min(oneThirdOfTotalEarning.value, maxTaxFreeIncome))
 const taxableIncome = computed(() => props.totalGrossPay - taxFreeIncome.value)
 
-// Correct tax slabs for 2025-2026 assessment year
+// Official tax slabs for 2025-2026 assessment year based on PWC Bangladesh
 const taxSlabs = {
   male: [
-    {limit: 350000, rate: 0},      // Tax-free income for males
-    {limit: 100000, rate: 0.05},   // 5% on next 100,000
-    {limit: 400000, rate: 0.10},   // 10% on next 400,000
-    {limit: 500000, rate: 0.15},   // 15% on next 500,000
-    {limit: 500000, rate: 0.20},   // 20% on next 500,000
-    {limit: Infinity, rate: 0.25}  // 25% on remaining income
+    {limit: 350000, rate: 0},      // First 350,000: 0%
+    {limit: 100000, rate: 0.05},   // Next 100,000: 5%
+    {limit: 400000, rate: 0.10},   // Next 400,000: 10%
+    {limit: 500000, rate: 0.15},   // Next 500,000: 15%
+    {limit: 500000, rate: 0.20},   // Next 500,000: 20%
+    {limit: Infinity, rate: 0.25}  // Remaining: 25%
   ],
   female: [
-    {limit: 400000, rate: 0},      // Tax-free income for females (increased limit)
-    {limit: 100000, rate: 0.05},   // 5% on next 100,000
-    {limit: 400000, rate: 0.10},   // 10% on next 400,000
-    {limit: 500000, rate: 0.15},   // 15% on next 500,000
-    {limit: 500000, rate: 0.20},   // 20% on next 500,000
-    {limit: Infinity, rate: 0.25}  // 25% on remaining income
+    {limit: 400000, rate: 0},      // First 400,000: 0%
+    {limit: 100000, rate: 0.05},   // Next 100,000: 5%
+    {limit: 400000, rate: 0.10},   // Next 400,000: 10%
+    {limit: 500000, rate: 0.15},   // Next 500,000: 15%
+    {limit: 500000, rate: 0.20},   // Next 500,000: 20%
+    {limit: Infinity, rate: 0.25}  // Remaining: 25%
   ],
   specially_abled: [
-    {limit: 475000, rate: 0},      // Tax-free income for specially abled
-    {limit: 100000, rate: 0.05},   // 5% on next 100,000
-    {limit: 400000, rate: 0.10},   // 10% on next 400,000
-    {limit: 500000, rate: 0.15},   // 15% on next 500,000
-    {limit: 500000, rate: 0.20},   // 20% on next 500,000
-    {limit: Infinity, rate: 0.25}  // 25% on remaining income
+    {limit: 475000, rate: 0},      // First 475,000: 0%
+    {limit: 100000, rate: 0.05},   // Next 100,000: 5%
+    {limit: 400000, rate: 0.10},   // Next 400,000: 10%
+    {limit: 500000, rate: 0.15},   // Next 500,000: 15%
+    {limit: 500000, rate: 0.20},   // Next 500,000: 20%
+    {limit: Infinity, rate: 0.25}  // Remaining: 25%
   ],
   freedom_fighter: [
-    {limit: 500000, rate: 0},      // Tax-free income for freedom fighters
-    {limit: 100000, rate: 0.05},   // 5% on next 100,000
-    {limit: 400000, rate: 0.10},   // 10% on next 400,000
-    {limit: 500000, rate: 0.15},   // 15% on next 500,000
-    {limit: 500000, rate: 0.20},   // 20% on next 500,000
-    {limit: Infinity, rate: 0.25}  // 25% on remaining income
+    {limit: 500000, rate: 0},      // First 500,000: 0%
+    {limit: 100000, rate: 0.05},   // Next 100,000: 5%
+    {limit: 400000, rate: 0.10},   // Next 400,000: 10%
+    {limit: 500000, rate: 0.15},   // Next 500,000: 15%
+    {limit: 500000, rate: 0.20},   // Next 500,000: 20%
+    {limit: Infinity, rate: 0.25}  // Remaining: 25%
   ]
 }
 

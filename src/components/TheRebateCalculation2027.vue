@@ -80,12 +80,12 @@ const calculateTax = computed(() => {
 })
 
 const maxRebate = computed(() => {
-  // Maximum rebate is 25% of total investment or 15 lakh, whichever is lower
+  // Maximum possible rebate: 25% of total investment or 15 lakh, whichever is lower
   return Math.min(props.totalInvestment * 0.25, 1500000)
 })
 
 const rebateAmount = computed(() => {
-  // Rebate cannot exceed the calculated tax amount
+  // Actual rebate: cannot exceed the calculated tax amount
   return Math.min(maxRebate.value, calculateTax.value)
 })
 
