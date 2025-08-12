@@ -23,7 +23,7 @@ const props = defineProps({
 const oneThirdOfTotalEarning = computed(() => Math.floor(props.totalGrossPay / 3))
 const maxTaxFreeIncome = 500000
 const taxFreeIncome = computed(() => Math.min(oneThirdOfTotalEarning.value, maxTaxFreeIncome))
-const taxableIncome = computed(() => props.totalGrossPay - taxFreeIncome.value)
+const taxableIncome = computed(() => Math.max(0, props.totalGrossPay - taxFreeIncome.value))
 
 // Official tax slabs for 2026-2027 assessment year from The Daily Ittefaq
 // Tax rate: 0% up to Tk 375,000, 10% for next Tk 300,000, 15% for next Tk 400,000, 
