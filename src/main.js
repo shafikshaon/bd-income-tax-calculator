@@ -4,7 +4,7 @@ import './assets/grid.css'
 import { createApp } from 'vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import App from './App.vue'
-import VueGtag from 'vue-gtag'
+import { createGtag } from 'vue-gtag'
 
 // Import Bootstrap CSS and JS
 import './assets/bootstrap.min.css'
@@ -30,9 +30,12 @@ const app = createApp(App)
 // Use router
 app.use(router)
 
-app.use(VueGtag, {
-  config: {id: 'G-2XBRE28Z4Y'}
-}, router)
+// Configure Google Analytics with vue-gtag v3
+app.use(createGtag({
+  config: {
+    id: 'G-2XBRE28Z4Y'
+  }
+}))
 
 // Mount the app
 app.mount('#app')
