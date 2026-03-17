@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "bootstrap": "^5.3.7",
-    "html2pdf.js": "^0.10.2",
+    "html2pdf.js": "^0.14.0",
     "vue": "^3.5.18",
     "vue-gtag": "^3.5.1",
     "vue-router": "^4.5.1"
